@@ -5,8 +5,12 @@ import AnimeList from "./components/AnimeList";
 
 interface Data {
   title: string;
-  images: string;
-  webp: string;
+  images: {
+    webp: {
+      image_url: string;
+    };
+  };
+  mal_id: string;
 }
 
 const Home = async () => {
@@ -25,20 +29,12 @@ const Home = async () => {
         </Link>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-        {anime.data.map((data: Data) => {
-          return (
+        {anime.data.map((data: Data) => (
+          <div key={data.mal_id}>
             <AnimeList title={data.title} images={data.images.webp.image_url} />
-          );
-        })}
+          </div>
+        ))}
       </div>
-      {/* {anime.data.map((data: Data, index: Key) => (
-        <div
-          key={index}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4"
-        >
-          <AnimeList title={data.title} images={data.images.jpg.image_url} />
-        </div>
-      ))} */}
     </div>
   );
 };
