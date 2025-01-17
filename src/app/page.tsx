@@ -1,7 +1,11 @@
 /* eslint-disable react/jsx-key */
-import Image from "next/image";
 import Link from "next/link";
-import AnimeList from "./components/AnimeList";
+import AnimeList from "./components/AnimeList/index";
+import Header from "./components/AnimeList/Header";
+
+interface ApiResponse {
+  data: Data[];
+}
 
 interface Data {
   title: string;
@@ -11,36 +15,30 @@ interface Data {
     };
   };
   mal_id: string;
-  id: string;
 }
 
 const Home = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
   );
-
-  const anime = await response.json();
-
+  const topAnime: ApiResponse = await response.json();
+  // const response2 = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
+  // );
+  // const newAnime = await response.json();
   return (
-    <div className="flex flex-col px-3 w-full max-w-full">
-      <div className="flex flex-row justify-between items-center pt-8 pb-4">
-        <h1 className="font-bold text-2xl">Most Popular</h1>
-        <Link href={"/search"}>
-          <p>View All</p>
-        </Link>
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-        {anime.data.map((data: Data) => (
-          <div key={data.mal_id}>
-            <AnimeList
-              title={data.title}
-              images={data.images.webp.image_url}
-              id={data.mal_id}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      {/* most popular anime */}
+      <section className="flex flex-col px-3 w-full max-w-full pb-3">
+        <Header title="Most Popular" linkHref="/popular" linkTitle="View All" />
+        <AnimeList api={topAnime} />
+      </section>
+      {/* Newest entry */}
+      <section className="flex flex-col px-3 w-full max-w-full pb-3">
+        <Header title="Newest" linkHref="/new" linkTitle="View All" />
+        <AnimeList api={topAnime} />
+      </section>
+    </>
   );
 };
 
