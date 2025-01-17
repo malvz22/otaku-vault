@@ -22,6 +22,7 @@ const AnimeList: React.FC<Data> = ({ api }) => {
             key={anime.mal_id}
             href={`/${anime.mal_id}`}
             className="cursor-pointer"
+            id={anime.mal_id}
           >
             <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
               <Image

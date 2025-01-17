@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   return (
@@ -6,11 +7,7 @@ export default function Navbar() {
       <Link href={"/"}>
         <h1 className="text-white text-[24px] font-bold">OtakuVault</h1>
       </Link>
-
-      <input
-        className="w-full md:w-[213px] max-w-full p-3 rounded-md border-solid border-[1px] border-black"
-        placeholder="search anime..."
-      />
+      <SearchBar />
     </nav>
   );
 }
