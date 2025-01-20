@@ -9,7 +9,7 @@ const Page = () => {
         <h1 className="text-[48px] font-bold">NOT FOUND</h1>
       </div>
       <Link href={"/"}>
-        <h1 className="text-[24px] font-semibold hover:text-[#1E90FF] transition-colors duration-700">
+        <h1 className="text-[24px] font-semibold hover:text-[#1E90FF] transition-colors duration-700 underline">
           Return
         </h1>
       </Link>
