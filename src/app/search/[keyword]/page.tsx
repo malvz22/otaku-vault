@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-key */
 import AnimeList from "@/app/components/AnimeList";
 import Header from "@/app/components/AnimeList/Header";
-import Link from "next/link";
 
 interface ApiResponse {
   data: Data[];
