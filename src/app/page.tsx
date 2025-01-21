@@ -23,10 +23,7 @@ const Home = async () => {
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
   );
   const topAnime: ApiResponse = await response.json();
-  // const response2 = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
-  // );
-  // const newAnime = await response.json();
+
   console.log(topAnime);
 
   return (

@@ -4,16 +4,12 @@
 import { useEffect, useState } from "react";
 import HeaderMenu from "../components/Utilities/HeaderMenu";
 import Pagination from "../components/Utilities/Pagination";
-import AnimeList from "../components/AnimeList";
 import Link from "next/link";
 import Image from "next/image";
 
 interface ApiResponse {
   data: Data[];
-  pagination: {
-    last_visible_page: number;
-    has_next_page: boolean;
-  };
+  pagination: Pagination;
 }
 
 interface Data {
@@ -27,42 +23,64 @@ interface Data {
   mal_id: string;
 }
 
+interface Pagination {
+  last_visible_page: number;
+  has_next_page: boolean;
+}
+
 const Page = () => {
   const [page, setPage] = useState(1);
+  const [paginationData, setPaginationData] = useState<Pagination | null>(null);
   const [topAnime, setTopAnime] = useState<Data[]>([]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
+  //       );
+  //       // const { data }: { data: Data[] } = await response.json();
+  //       const { data }: ApiResponse = await response.json();
+  //       setTopAnime(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [page]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
+      );
+      // const { data }: { data: Data[] } = await response.json();
+      const { data, pagination }: ApiResponse = await response.json();
+      setTopAnime(data);
+      setPaginationData(pagination);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
-        );
-        // const { data }: { data: Data[] } = await response.json();
-        const { data }: ApiResponse = await response.json();
-        console.log("fetched API Response:", data);
-        setTopAnime(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, [page]);
 
-  console.log(topAnime);
-  console.log(Array.isArray(topAnime));
+  console.log(paginationData);
 
   return (
-    <div className="flex flex-col px-3 w-full max-w-full pb-3">
-      <HeaderMenu />
+    <div className="flex flex-col px-3 w-full max-w-full pb-3 justify-center items-center">
+      <HeaderMenu title={`Most Popular Anime Page #${page}`} />
       {/* <AnimeList api={topAnime} /> */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-        {topAnime.map((anime: Data, index: string) => {
+        {topAnime.map((anime: Data) => {
           return (
             <Link
               key={anime.mal_id}
               href={`/${anime.mal_id}`}
               className="cursor-pointer"
-              id={index}
+              id={anime.mal_id}
             >
               <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
                 <Image
@@ -79,7 +97,11 @@ const Page = () => {
         })}
       </div>
 
-      <Pagination />
+      <Pagination
+        page={page}
+        lastPage={paginationData?.last_visible_page || 0}
+        setPage={setPage}
+      />
     </div>
   );
 };
