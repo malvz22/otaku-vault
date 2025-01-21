@@ -15,6 +15,7 @@ interface Data {
     };
   };
   mal_id: string;
+  api: string;
 }
 
 const Home = async () => {
@@ -26,6 +27,8 @@ const Home = async () => {
   //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
   // );
   // const newAnime = await response.json();
+  console.log(topAnime);
+
   return (
     <>
       {/* most popular anime */}

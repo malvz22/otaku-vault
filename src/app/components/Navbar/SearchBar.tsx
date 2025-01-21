@@ -11,16 +11,18 @@ const SearchBar = () => {
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
+    const keyword = searchRef.current?.value;
+
+    if (!keyword) return;
+
     if (event.type === `keydown`) {
       const keyboardEvent = event as React.KeyboardEvent<HTMLInputElement>;
       if (keyboardEvent.key === `Enter`) {
         event.preventDefault();
-        const keyword = searchRef.current?.value;
         router.push(`/search/${keyword}`);
       }
     } else if (event.type === `click`) {
       event.preventDefault();
-      const keyword = searchRef.current?.value;
       router.push(`/search/${keyword}`);
     }
   };

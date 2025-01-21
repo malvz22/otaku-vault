@@ -18,8 +18,9 @@ interface Data {
 
 const Home = async ({ params }: { params: { keyword: string } }) => {
   const { keyword } = await params;
+  const decodedKeyword = decodeURI(keyword);
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${keyword}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${decodedKeyword}`
   );
   const searchAnime: ApiResponse = await response.json();
   // const response2 = await fetch(
@@ -30,7 +31,7 @@ const Home = async ({ params }: { params: { keyword: string } }) => {
     <>
       <section className="flex flex-col px-3 w-full max-w-full pb-3">
         <Header
-          title={`Search result for "${keyword}"`}
+          title={`Search result for "${decodedKeyword}"`}
           linkHref=""
           linkTitle=""
         />
