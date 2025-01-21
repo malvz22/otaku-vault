@@ -5,11 +5,19 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ page, lastPage, setPage }) => {
+  const scrollTop = () => {
+    scrollTo({
+      behavior: "smooth",
+      top: 0,
+    });
+  };
   const handleNextPage = () => {
     setPage((prevState) => prevState + 1);
+    scrollTop();
   };
   const handlePrevPage = () => {
     setPage((prevState) => prevState - 1);
+    scrollTop();
   };
   return (
     <div className="flex flex-row gap-3 justify-center items-center py-4 px-2 text-2xl">
