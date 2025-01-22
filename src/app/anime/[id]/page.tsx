@@ -25,13 +25,12 @@ interface Data {
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const id = await params.id;
+  //   const id = await params.id;
+  const { id } = await params;
 
   const animeData: ApiResponse = await getAnimeResponse({
     resource: `anime/${id}`,
   });
-
-  console.log(typeof animeData);
 
   return (
     <>
