@@ -15,7 +15,6 @@ const Page = async () => {
     resource: "top/anime",
     query: "limit=8",
   });
-  console.log(topAnime);
 
   return <div>New Anime Page</div>;
 };

@@ -22,7 +22,7 @@ const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
         return (
           <Link
             key={anime.mal_id}
-            href={`/${anime.mal_id}`}
+            href={`/anime/${anime.mal_id}`}
             className="cursor-pointer"
             id={index}
           >
