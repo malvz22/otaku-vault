@@ -18,10 +18,12 @@ const Pagination: React.FC<PaginationProps> = ({ page, lastPage, setPage }) => {
     scrollTop();
   };
   const handleLastPage = () => {
+    if (page === lastPage) return;
     setPage(lastPage);
     scrollTop();
   };
   const handleFirstPage = () => {
+    if (page === 1) return;
     setPage(1);
     scrollTop();
   };
@@ -34,13 +36,17 @@ const Pagination: React.FC<PaginationProps> = ({ page, lastPage, setPage }) => {
   return (
     <div className="flex flex-row gap-3 justify-center items-center py-4 px-2 text-2xl">
       <button
-        className="transition-all hover:text-[#1E90FF] duration-700"
+        className={`transition-all hover:text-[#1E90FF] duration-700 ${
+          page === 1 ? `opacity-50` : `opacity-100`
+        }`}
         onClick={() => handleFirstPage()}
       >
         First
       </button>
       <button
-        className="transition-all hover:text-[#1E90FF] duration-700"
+        className={`transition-all hover:text-[#1E90FF] duration-700 ${
+          page === 1 ? `opacity-50` : `opacity-100`
+        }`}
         onClick={() => handlePrevPage()}
       >
         Prev
@@ -49,13 +55,17 @@ const Pagination: React.FC<PaginationProps> = ({ page, lastPage, setPage }) => {
         {page} of {lastPage}
       </p>
       <button
-        className="transition-all hover:text-[#1E90FF] duration-700"
+        className={`transition-all hover:text-[#1E90FF] duration-700 ${
+          page === lastPage ? `opacity-50` : `opacity-100`
+        }`}
         onClick={() => handleNextPage()}
       >
         Next
       </button>
       <button
-        className="transition-all hover:text-[#1E90FF] duration-700"
+        className={`transition-all hover:text-[#1E90FF] duration-700 ${
+          page === lastPage ? `opacity-50` : `opacity-100`
+        }`}
         onClick={() => handleLastPage()}
       >
         Last

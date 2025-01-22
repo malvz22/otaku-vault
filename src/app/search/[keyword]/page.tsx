@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import AnimeList from "@/app/components/AnimeList";
 import Header from "@/app/components/AnimeList/Header";
+import { getAnimeResponse } from "@/app/libraries/api-library";
 
 interface ApiResponse {
   data: Data[];
@@ -19,14 +20,16 @@ interface Data {
 const Home = async ({ params }: { params: { keyword: string } }) => {
   const { keyword } = await params;
   const decodedKeyword = decodeURI(keyword);
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${decodedKeyword}`
-  );
-  const searchAnime: ApiResponse = await response.json();
-  // const response2 = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
+  // const response = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${decodedKeyword}`
   // );
-  // const newAnime = await response.json();
+  // const searchAnime: ApiResponse = await response.json();
+
+  const searchAnime: ApiResponse = await getAnimeResponse({
+    resource: `anime`,
+    query: `q=${decodedKeyword}`,
+  });
+
   return (
     <>
       <section className="flex flex-col px-3 w-full max-w-full pb-3">

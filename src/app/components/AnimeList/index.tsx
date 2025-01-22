@@ -1,7 +1,5 @@
-import { log } from "console";
 import Image from "next/image";
 import Link from "next/link";
-import { isArray } from "util";
 
 interface AnimeListProps {
   api: Data[];

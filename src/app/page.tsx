@@ -2,6 +2,8 @@
 import Link from "next/link";
 import AnimeList from "./components/AnimeList/index";
 import Header from "./components/AnimeList/Header";
+import { getAnimeResponse } from "./libraries/api-library";
+import { useEffect, useState } from "react";
 
 interface ApiResponse {
   data: Data[];
@@ -19,10 +21,27 @@ interface Data {
 }
 
 const Home = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
-  );
-  const topAnime: ApiResponse = await response.json();
+  // const [topAnime, setTopAnime] = useState<Data[]>([]);
+  // const response = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
+  // );
+  // const topAnime: ApiResponse = await response.json();
+
+  const topAnime: { data: Data[] } = await getAnimeResponse({
+    resource: "top/anime",
+    query: "limit=8",
+  });
+
+  // useEffect(() => {
+  //   const fetchAnime = async () => {
+  //     const data: ApiResponse = await getAnimeResponse({
+  //       resource: "top/anime",
+  //       query: "limit=8",
+  //     });
+  //     setTopAnime(data);
+  //   };
+  //   fetchAnime();
+  // }, []);
 
   console.log(topAnime);
 
@@ -34,10 +53,6 @@ const Home = async () => {
         <AnimeList api={topAnime} />
       </section>
       {/* Newest entry */}
-      <section className="flex flex-col px-3 w-full max-w-full pb-3">
-        <Header title="Newest" linkHref="/new" linkTitle="View All" />
-        <AnimeList api={topAnime} />
-      </section>
     </>
   );
 };

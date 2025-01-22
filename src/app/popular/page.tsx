@@ -6,6 +6,7 @@ import HeaderMenu from "../components/Utilities/HeaderMenu";
 import Pagination from "../components/Utilities/Pagination";
 import Link from "next/link";
 import Image from "next/image";
+import { getAnimeResponse } from "../libraries/api-library";
 
 interface ApiResponse {
   data: Data[];
@@ -51,11 +52,14 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
-      );
+      // const response = await fetch(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
+      // );
       // const { data }: { data: Data[] } = await response.json();
-      const { data, pagination }: ApiResponse = await response.json();
+      const { data, pagination }: ApiResponse = await getAnimeResponse({
+        resource: `top/anime`,
+        query: `page=${page}`,
+      });
       setTopAnime(data);
       setPaginationData(pagination);
     } catch (error) {
@@ -66,8 +70,6 @@ const Page = () => {
   useEffect(() => {
     fetchData();
   }, [page]);
-
-  console.log(paginationData);
 
   return (
     <div className="flex flex-col px-3 w-full max-w-full pb-3 justify-center items-center">
