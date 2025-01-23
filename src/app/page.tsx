@@ -5,7 +5,8 @@ import Header from "./components/AnimeList/Header";
 import Image from "next/image";
 import {
   getAnimeResponse,
-  getRecommendedAnimeResponse,
+  getNestedAnimeResponse,
+  randomizer,
 } from "./libraries/api-library";
 import { IoStarSharp, IoThumbsUpSharp } from "react-icons/io5";
 
@@ -25,13 +26,16 @@ const Home = async () => {
     query: "limit=8",
   });
 
-  let recommendedAnime: { data: Data[] } = await getRecommendedAnimeResponse({
+  let recommendedAnime: { data: Data[] } = await getNestedAnimeResponse({
     resource: "recommendations/anime",
+    objectProperty: "entry",
   });
 
   // recommendedAnime = { recommendedAnime.slice(0, 4) };
 
-  recommendedAnime = recommendedAnime.slice(0, 8);
+  // recommendedAnime = recommendedAnime.slice(0, 8);
+
+  recommendedAnime = randomizer(recommendedAnime, 10);
 
   return (
     <>
@@ -47,8 +51,9 @@ const Home = async () => {
         <Header title="Recommended" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-          {recommendedAnime.map((anime: Data, index: string) => {
+        <AnimeList api={recommendedAnime} />
+        {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+          {recommendedAnime.data.map((anime: Data, index: string) => {
             return (
               <Link
                 key={anime.mal_id}
@@ -69,7 +74,7 @@ const Home = async () => {
               </Link>
             );
           })}
-        </div>
+        </div> */}
       </section>
     </>
   );

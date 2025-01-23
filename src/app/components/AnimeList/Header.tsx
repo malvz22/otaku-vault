@@ -4,7 +4,7 @@ interface Props {
   title: string;
   linkHref: string;
   linkTitle: string;
-  children: Readonly<React.ReactNode>;
+  children?: Readonly<React.ReactNode>;
 }
 
 // {
