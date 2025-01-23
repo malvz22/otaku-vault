@@ -34,28 +34,8 @@ const Page = () => {
   const [paginationData, setPaginationData] = useState<Pagination | null>(null);
   const [topAnime, setTopAnime] = useState<Data[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
-  //       );
-  //       // const { data }: { data: Data[] } = await response.json();
-  //       const { data }: ApiResponse = await response.json();
-  //       setTopAnime(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [page]);
-
   const fetchData = async () => {
     try {
-      // const response = await fetch(
-      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}`
-      // );
-      // const { data }: { data: Data[] } = await response.json();
       const { data, pagination }: ApiResponse = await getAnimeResponse({
         resource: `top/anime`,
         query: `page=${page}`,
@@ -80,7 +60,7 @@ const Page = () => {
           return (
             <Link
               key={anime.mal_id}
-              href={`/${anime.mal_id}`}
+              href={`/anime/${anime.mal_id}`}
               className="cursor-pointer"
               id={anime.mal_id}
             >

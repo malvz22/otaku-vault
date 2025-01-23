@@ -2,12 +2,12 @@
 import Link from "next/link";
 import AnimeList from "./components/AnimeList/index";
 import Header from "./components/AnimeList/Header";
-import { getAnimeResponse } from "./libraries/api-library";
-import { useEffect, useState } from "react";
-
-interface ApiResponse {
-  data: Data[];
-}
+import Image from "next/image";
+import {
+  getAnimeResponse,
+  getRecommendedAnimeResponse,
+} from "./libraries/api-library";
+import { IoStarSharp, IoThumbsUpSharp } from "react-icons/io5";
 
 interface Data {
   title: string;
@@ -17,42 +17,60 @@ interface Data {
     };
   };
   mal_id: string;
-  api: string;
 }
 
 const Home = async () => {
-  // const [topAnime, setTopAnime] = useState<Data[]>([]);
-  // const response = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`
-  // );
-  // const topAnime: ApiResponse = await response.json();
-
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
     query: "limit=8",
   });
 
-  // useEffect(() => {
-  //   const fetchAnime = async () => {
-  //     const data: ApiResponse = await getAnimeResponse({
-  //       resource: "top/anime",
-  //       query: "limit=8",
-  //     });
-  //     setTopAnime(data);
-  //   };
-  //   fetchAnime();
-  // }, []);
+  let recommendedAnime: { data: Data[] } = await getRecommendedAnimeResponse({
+    resource: "recommendations/anime",
+  });
 
-  console.log(topAnime);
+  // recommendedAnime = { recommendedAnime.slice(0, 4) };
+
+  recommendedAnime = recommendedAnime.slice(0, 8);
 
   return (
     <>
       {/* most popular anime */}
       <section className="flex flex-col px-3 w-full max-w-full pb-3">
-        <Header title="Most Popular" linkHref="/popular" linkTitle="View All" />
+        <Header title="Most Popular" linkHref="/popular" linkTitle="View All">
+          <IoStarSharp />
+        </Header>
         <AnimeList api={topAnime} />
       </section>
       {/* Newest entry */}
+      <section className="flex flex-col px-3 w-full max-w-full pb-3">
+        <Header title="Recommended" linkHref="" linkTitle="">
+          <IoThumbsUpSharp />
+        </Header>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+          {recommendedAnime.map((anime: Data, index: string) => {
+            return (
+              <Link
+                key={anime.mal_id}
+                href={`/anime/${anime.mal_id}`}
+                className="cursor-pointer"
+                id={index}
+              >
+                <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
+                  <Image
+                    src={anime.images.webp.image_url}
+                    alt="..."
+                    width={350}
+                    height={400}
+                    className="rounded-md overflow-hidden w-full max-h-64 object-cover"
+                  />
+                  <p className="text-md md:text-xl font-bold">{anime.title}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 };

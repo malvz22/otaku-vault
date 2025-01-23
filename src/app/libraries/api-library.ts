@@ -13,3 +13,15 @@ export const getAnimeResponse: React.FC<ApiProps> = async ({
   const animeData = await response.json();
   return animeData;
 };
+
+export const getRecommendedAnimeResponse = async ({
+  resource,
+}: {
+  resource: string;
+}) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`
+  );
+  const animeData = await response.json();
+  return animeData.data.flatMap((item: string) => item.entry);
+};
