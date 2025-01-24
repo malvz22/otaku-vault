@@ -38,9 +38,13 @@ interface Data {
 //   }
 // }
 
+//params inside async: { params }: { params: Promise<{ id: string }> }
+
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   //   const id = await params.id;
-  const { id } = await params;
+  // const { id } = await params;
+
+  const id = (await params).id;
 
   let animeData: ApiResponse | null = null;
 
@@ -48,6 +52,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     animeData = await getAnimeResponse({
       resource: `anime/${id}`,
     });
+    console.log(animeData);
   } catch (error) {
     console.error("Failed to fetch data:", error);
     return <div>Error loading anime data.</div>;

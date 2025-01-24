@@ -8,7 +8,7 @@ interface NestedDataItems {
 }
 
 interface ApiResponse {
-  data: Data;
+  data: Data[];
 }
 
 interface Data {
