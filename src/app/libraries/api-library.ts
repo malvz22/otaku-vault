@@ -6,6 +6,11 @@ interface ApiProps {
 interface NestedDataItems {
   [key: string]: unknown;
 }
+
+interface ApiResponse {
+  data: Data;
+}
+
 interface Data {
   push(index: Data[]): unknown;
   some(arg0: (entry: { mal_id: string; entry: Data[] }) => boolean): unknown;
@@ -16,16 +21,51 @@ interface Data {
     };
   };
   mal_id: string;
+  year: number;
+  score: number;
+  rank: number;
+  popularity: number;
+  episodes: number;
+  synopsis: string;
+  trailer: {
+    youtube_id: string;
+  };
 }
 
-export const getAnimeResponse: React.FC<ApiProps> = async ({
+interface RandomizedData {
+  title: string;
+  images: {
+    webp: {
+      image_url: string;
+    };
+  };
+  mal_id: string;
+}
+
+export const getAnimeResponse = async ({
   resource,
   query = "",
-}) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${query}`
-  );
+}: ApiProps): Promise<ApiResponse> => {
+  // const response = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${query ? `?${query}` : ""}`
+  // );
+
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+    query ? `${query}` : ""
+  }`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
   const animeData = await response.json();
+
+  if (!animeData || !animeData.data) {
+    throw new Error("Invalid API response structure.");
+  }
+
   return animeData;
 };
 
@@ -35,33 +75,64 @@ export const getNestedAnimeResponse = async ({
 }: {
   resource: string;
   objectProperty: string;
-}) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`
-  );
+}): Promise<ApiResponse> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
+  // const response = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`
+  // );
   const animeData = await response.json();
+
+  if (!animeData || !animeData.data) {
+    throw new Error("Invalid API Response structure");
+  }
+
   return animeData.data.flatMap(
     (item: NestedDataItems) => item[objectProperty]
   );
 };
 
-export const randomizer = (data: Data[], gap = 5) => {
+// randomizer without generic
+
+export const randomizer = (data: RandomizedData[], gap = 5) => {
   const first = ~~(Math.random() * (data.length - gap) + 1);
   const last = first + gap;
 
   const uniqueData = {
-    data: data.slice(first, last).reduce((acc: Data[], index: Data) => {
-      if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
-        acc.push(index);
-      }
-      return acc;
-    }, [] as Data[]),
+    data: data
+      .slice(first, last)
+      .reduce((acc: RandomizedData[], index: RandomizedData) => {
+        if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
+          acc.push(index);
+        }
+        return acc;
+      }, [] as RandomizedData[]),
   };
 
-  // const response = {
-  //   data: data.slice(first, last),
-  // };
-
-  // return response;
   return uniqueData;
 };
+
+// export const genericRandomizer = <T extends { mal_id: string }>(
+//   data: T[],
+//   gap = 5
+// ): { data: T[] } => {
+//   const first = ~~(Math.random() * (data.length - gap) + 1);
+//   const last = first + gap;
+
+//   const uniqueData = {
+//     data: data.slice(first, last).reduce((acc: T[], index: T) => {
+//       if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
+//         acc.push(index);
+//       }
+//       return acc;
+//     }, [] as T[]),
+//   };
+
+//   return uniqueData;
+// };

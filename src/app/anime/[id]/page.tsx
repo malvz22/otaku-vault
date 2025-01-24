@@ -28,9 +28,20 @@ const Page = async ({ params }: { params: { id: string } }) => {
   //   const id = await params.id;
   const { id } = params;
 
-  const animeData: ApiResponse = await getAnimeResponse({
-    resource: `anime/${id}`,
-  });
+  let animeData: ApiResponse | null = null;
+
+  try {
+    animeData = await getAnimeResponse({
+      resource: `anime/${id}`,
+    });
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    return <div>Error loading anime data.</div>;
+  }
+
+  if (!animeData?.data) {
+    return <div>No anime data found.</div>;
+  }
 
   return (
     <>

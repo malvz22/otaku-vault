@@ -81,7 +81,7 @@ const Page = () => {
 
       <Pagination
         page={page}
-        lastPage={paginationData?.last_visible_page || 0}
+        lastPage={paginationData?.last_visible_page || 1}
         setPage={setPage}
       />
     </div>

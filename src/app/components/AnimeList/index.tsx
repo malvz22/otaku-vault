@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface AnimeListProps {
-  api: Data[];
+  api: { data: Data[] };
 }
 
 interface Data {
@@ -18,13 +18,13 @@ interface Data {
 const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-      {api.data?.map((anime: Data, index: string) => {
+      {api.data?.map((anime: Data) => {
         return (
           <Link
             key={anime.mal_id}
             href={`/anime/${anime.mal_id}`}
             className="cursor-pointer"
-            id={index}
+            id={anime.mal_id}
           >
             <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
               <Image

@@ -34,7 +34,7 @@ const Home = async () => {
 
   recommendedAnime = randomizer(recommendedAnime, 10);
 
-  console.log(recommendedAnime.data);
+  // recommendedAnime = genericRandomizer(recommendedAnime, 10);
 
   return (
     <>
