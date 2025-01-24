@@ -7,6 +7,7 @@ interface ApiResponse {
 }
 
 interface Data {
+  mal_id: string;
   title: string;
   year: number;
   score: number;
@@ -24,9 +25,22 @@ interface Data {
   };
 }
 
+// export async function generateStaticParams() {
+//   try {
+//     const animeList = await getAnimeResponse({ resource: "anime" });
+
+//     return animeList.map((anime: Data) => ({
+//       id: anime.mal_id.toString(),
+//     }));
+//   } catch (error) {
+//     console.error("Failed to fetch anime list for static params");
+//     return [];
+//   }
+// }
+
 const Page = async ({ params }: { params: { id: string } }) => {
   //   const id = await params.id;
-  const { id } = params;
+  const { id } = await params;
 
   let animeData: ApiResponse | null = null;
 
