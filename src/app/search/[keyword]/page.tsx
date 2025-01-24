@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import AnimeList from "@/app/components/AnimeList";
 import Header from "@/app/components/AnimeList/Header";
 import { getAnimeResponse } from "@/app/libraries/api-library";
@@ -17,8 +16,8 @@ interface Data {
   mal_id: string;
 }
 
-const Home = async ({ params }: { params: { keyword: string } }) => {
-  const { keyword } = await params;
+const Home = async ({ params }: { params: Promise<{ keyword: string }> }) => {
+  const keyword = (await params).keyword;
   const decodedKeyword = decodeURI(keyword);
   // const response = await fetch(
   //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${decodedKeyword}`
