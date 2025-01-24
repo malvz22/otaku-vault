@@ -6,6 +6,17 @@ interface ApiProps {
 interface NestedDataItems {
   [key: string]: unknown;
 }
+interface Data {
+  push(index: Data[]): unknown;
+  some(arg0: (entry: { mal_id: string; entry: Data[] }) => boolean): unknown;
+  title: string;
+  images: {
+    webp: {
+      image_url: string;
+    };
+  };
+  mal_id: string;
+}
 
 export const getAnimeResponse: React.FC<ApiProps> = async ({
   resource,
@@ -34,13 +45,23 @@ export const getNestedAnimeResponse = async ({
   );
 };
 
-export const randomizer = (data: any, gap = 5) => {
+export const randomizer = (data: Data[], gap = 5) => {
   const first = ~~(Math.random() * (data.length - gap) + 1);
   const last = first + gap;
 
-  const response = {
-    data: data.slice(first, last),
+  const uniqueData = {
+    data: data.slice(first, last).reduce((acc: Data[], index: Data) => {
+      if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
+        acc.push(index);
+      }
+      return acc;
+    }, [] as Data[]),
   };
 
-  return response;
+  // const response = {
+  //   data: data.slice(first, last),
+  // };
+
+  // return response;
+  return uniqueData;
 };
