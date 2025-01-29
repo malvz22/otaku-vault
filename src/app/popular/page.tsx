@@ -10,12 +10,11 @@ import { getAnimeResponse } from "../libraries/api-library";
 
 interface ApiResponse {
   data: Data[];
-  pagination: Pagination;
+  pagination?: Pagination;
 }
 
 interface Data {
   title: string;
-  url: string;
   images: {
     webp: {
       image_url: string;
@@ -36,12 +35,13 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const { data, pagination }: ApiResponse = await getAnimeResponse({
+      const response: ApiResponse = await getAnimeResponse({
         resource: `top/anime`,
         query: `page=${page}`,
       });
+      const { data, pagination } = response;
       setTopAnime(data);
-      setPaginationData(pagination);
+      setPaginationData(pagination || null);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

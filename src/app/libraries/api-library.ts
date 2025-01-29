@@ -32,15 +32,19 @@ interface Data {
   };
 }
 
-interface RandomizedData {
-  title: string;
-  images: {
-    webp: {
-      image_url: string;
-    };
-  };
-  mal_id: string;
-}
+// interface RandomizedData extends Data {
+//   title: string;
+//   images: {
+//     webp: {
+//       image_url: string;
+//     };
+//   };
+//   mal_id: string;
+// }
+
+// interface RandomizedDataContainer {
+//   data: RandomizedData[];
+// }
 
 export const getAnimeResponse = async ({
   resource,
@@ -75,7 +79,7 @@ export const getNestedAnimeResponse = async ({
 }: {
   resource: string;
   objectProperty: string;
-}): Promise<ApiResponse> => {
+}) => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`;
 
   const response = await fetch(url);
@@ -97,42 +101,3 @@ export const getNestedAnimeResponse = async ({
     (item: NestedDataItems) => item[objectProperty]
   );
 };
-
-// randomizer without generic
-
-export const randomizer = (data: RandomizedData[], gap = 5) => {
-  const first = ~~(Math.random() * (data.length - gap) + 1);
-  const last = first + gap;
-
-  const uniqueData = {
-    data: data
-      .slice(first, last)
-      .reduce((acc: RandomizedData[], index: RandomizedData) => {
-        if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
-          acc.push(index);
-        }
-        return acc;
-      }, [] as RandomizedData[]),
-  };
-
-  return uniqueData;
-};
-
-// export const genericRandomizer = <T extends { mal_id: string }>(
-//   data: T[],
-//   gap = 5
-// ): { data: T[] } => {
-//   const first = ~~(Math.random() * (data.length - gap) + 1);
-//   const last = first + gap;
-
-//   const uniqueData = {
-//     data: data.slice(first, last).reduce((acc: T[], index: T) => {
-//       if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
-//         acc.push(index);
-//       }
-//       return acc;
-//     }, [] as T[]),
-//   };
-
-//   return uniqueData;
-// };

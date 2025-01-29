@@ -25,25 +25,7 @@ interface Data {
   };
 }
 
-// export async function generateStaticParams() {
-//   try {
-//     const animeList = await getAnimeResponse({ resource: "anime" });
-
-//     return animeList.map((anime: Data) => ({
-//       id: anime.mal_id.toString(),
-//     }));
-//   } catch (error) {
-//     console.error("Failed to fetch anime list for static params");
-//     return [];
-//   }
-// }
-
-//params inside async: { params }: { params: Promise<{ id: string }> }
-
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  //   const id = await params.id;
-  // const { id } = await params;
-
   const id = (await params).id;
 
   let animeData: ApiResponse | null = null;
@@ -61,6 +43,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!animeData?.data) {
     return <div>No anime data found.</div>;
   }
+
+  const anime = animeData.data;
+  console.log(anime);
 
   return (
     <>

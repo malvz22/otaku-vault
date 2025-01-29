@@ -1,6 +1,8 @@
-import AnimeList from "@/app/components/AnimeList";
+//import AnimeList from "@/app/components/AnimeList";
+import Image from "next/image";
 import Header from "@/app/components/AnimeList/Header";
 import { getAnimeResponse } from "@/app/libraries/api-library";
+import Link from "next/link";
 
 interface ApiResponse {
   data: Data[];
@@ -29,6 +31,8 @@ const Home = async ({ params }: { params: Promise<{ keyword: string }> }) => {
     query: `q=${decodedKeyword}`,
   });
 
+  const searchAnimeArray = searchAnime.data;
+
   return (
     <>
       <section className="flex flex-col px-3 w-full max-w-full pb-3">
@@ -37,7 +41,30 @@ const Home = async ({ params }: { params: Promise<{ keyword: string }> }) => {
           linkHref=""
           linkTitle=""
         />
-        <AnimeList api={searchAnime} />
+        {/* <AnimeList api={searchAnimeArray} /> */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+          {searchAnimeArray.map((anime: Data) => {
+            return (
+              <Link
+                key={anime.mal_id}
+                href={`/anime/${anime.mal_id}`}
+                className="cursor-pointer"
+                id={anime.mal_id}
+              >
+                <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
+                  <Image
+                    src={anime.images.webp.image_url}
+                    alt="..."
+                    width={350}
+                    height={400}
+                    className="rounded-md overflow-hidden w-full max-h-64 object-cover"
+                  />
+                  <p className="text-md md:text-xl font-bold">{anime.title}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </section>
     </>
   );
