@@ -11,6 +11,10 @@ interface ApiResponse {
   data: Data[];
 }
 
+interface ApiResponseObject {
+  data: Data;
+}
+
 interface Data {
   push(index: Data[]): unknown;
   some(arg0: (entry: { mal_id: string; entry: Data[] }) => boolean): unknown;
@@ -50,6 +54,33 @@ export const getAnimeResponse = async ({
   resource,
   query = "",
 }: ApiProps): Promise<ApiResponse> => {
+  // const response = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${query ? `?${query}` : ""}`
+  // );
+
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+    query ? `${query}` : ""
+  }`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
+  const animeData = await response.json();
+
+  if (!animeData || !animeData.data) {
+    throw new Error("Invalid API response structure.");
+  }
+
+  return animeData;
+};
+
+export const getAnimeResponseObject = async ({
+  resource,
+  query = "",
+}: ApiProps): Promise<ApiResponseObject> => {
   // const response = await fetch(
   //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${query ? `?${query}` : ""}`
   // );

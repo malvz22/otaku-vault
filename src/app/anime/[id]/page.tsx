@@ -1,10 +1,20 @@
 import VideoPlayer from "@/app/components/Utilities/VideoPlayer";
-import { getAnimeResponse } from "@/app/libraries/api-library";
+import { getAnimeResponseObject } from "@/app/libraries/api-library";
 import Image from "next/image";
 
-interface ApiResponse {
-  data: Data;
-}
+// interface ApiResponse {
+//   data: Data[];
+// }
+
+// try {
+//   const animeData: {data: Data[]} = await getAnimeResponse({
+//     resource: `anime/${id}`,
+//   });
+//   console.log(animeData);
+// } catch (error) {
+//   console.error("Failed to fetch data:", error);
+//   return <div>Error loading anime data.</div>;
+// }
 
 interface Data {
   mal_id: string;
@@ -28,24 +38,13 @@ interface Data {
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  let animeData: ApiResponse | null = null;
-
-  try {
-    animeData = await getAnimeResponse({
-      resource: `anime/${id}`,
-    });
-    console.log(animeData);
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-    return <div>Error loading anime data.</div>;
-  }
+  const animeData: { data: Data } = await getAnimeResponseObject({
+    resource: `anime/${id}`,
+  });
 
   if (!animeData?.data) {
     return <div>No anime data found.</div>;
   }
-
-  const anime = animeData.data;
-  console.log(anime);
 
   return (
     <>
