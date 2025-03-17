@@ -15,7 +15,7 @@ interface Props {
 
 const Header = ({ title, linkHref, linkTitle, children }: Props) => {
   return (
-    <div className="flex flex-row justify-between items-center pt-8 pb-4">
+    <div className="flex flex-row justify-between items-center pt-8 pb-4 w-full max-w-full">
       <div className="flex flex-row gap-3 justify-center items-center">
         <h1 className="font-bold text-2xl">{title}</h1>
         <div className="text-2xl">{children}</div>
@@ -23,7 +23,9 @@ const Header = ({ title, linkHref, linkTitle, children }: Props) => {
 
       {linkHref && linkTitle ? (
         <Link href={`${linkHref}`}>
-          <p>{linkTitle}</p>
+          <p className="text-white hover:text-[#1E90FF] transition-colors duration-700">
+            {linkTitle}
+          </p>
         </Link>
       ) : null}
     </div>

@@ -132,3 +132,21 @@ export const getNestedAnimeResponse = async ({
     (item: NestedDataItems) => item[objectProperty]
   );
 };
+
+export const randomizer = (data: Data[], gap: number) => {
+  const values = data;
+
+  const first = ~~(Math.random() * (values.length - gap) + 1);
+  const last = first + gap;
+
+  const uniqueData = {
+    data: values.slice(first, last).reduce((acc: Data[], index: Data) => {
+      if (!acc.some((entry) => entry.mal_id === index.mal_id)) {
+        acc.push(index);
+      }
+      return acc;
+    }, [] as Data[]),
+  };
+
+  return uniqueData;
+};

@@ -1,8 +1,11 @@
 import AnimeList from "./components/AnimeList/index";
 import Header from "./components/AnimeList/Header";
-import { getAnimeResponse } from "./libraries/api-library";
-import { IoStarSharp } from "react-icons/io5";
-import Link from "next/link";
+import {
+  getAnimeResponse,
+  getNestedAnimeResponse,
+  randomizer,
+} from "./libraries/api-library";
+import { IoStarSharp, IoThumbsUpSharp } from "react-icons/io5";
 
 interface Data {
   title: string;
@@ -38,36 +41,29 @@ const Home = async () => {
     query: "limit=20",
   });
 
-  // let recommendedAnime: Data[] = await getNestedAnimeResponse({
-  //   resource: "recommendations/anime",
-  //   objectProperty: "entry",
-  // });
+  let recommendedAnime = await getNestedAnimeResponse({
+    resource: "recommendations/anime",
+    objectProperty: "entry",
+  });
 
-  // console.log(recommendedAnime);
-
-  // recommendedAnime = randomizer(recommendedAnime, 10);
+  recommendedAnime = randomizer(recommendedAnime, 11);
 
   return (
     <>
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-full pb-3">
-        <Header title="Most Popular" linkHref="" linkTitle="">
+        <Header title="Most Popular" linkHref="/popular" linkTitle="View All">
           <IoStarSharp />
         </Header>
         <AnimeList api={topAnime} />
-        <Link href={"/popular"}>
-          <button className="px-4 py-2 bg-[#1E90FF] mt-4 rounded-md">
-            View All
-          </button>
-        </Link>
       </section>
-      {/* Newest entry */}
-      {/* <section className="flex flex-col px-3 w-full max-w-full pb-3">
+      {/* Recommended Anime*/}
+      <section className="flex flex-col px-3 w-full max-w-full pb-3">
         <Header title="Recommended" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
         <AnimeList api={recommendedAnime} />
-      </section> */}
+      </section>
     </>
   );
 };
