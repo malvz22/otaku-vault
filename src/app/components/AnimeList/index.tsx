@@ -31,13 +31,6 @@ const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
             id={anime.mal_id}
           >
             <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
-              {/* <Image
-                src={anime.images.webp.image_url}
-                alt="..."
-                width={350}
-                height={400}
-                className="rounded-md overflow-hidden w-full max-h-64 object-cover"
-              /> */}
               <div className="w-full max-w-full aspect-[16/22] relative rounded-md overflow-hidden">
                 <Image
                   src={anime.images.webp.image_url}

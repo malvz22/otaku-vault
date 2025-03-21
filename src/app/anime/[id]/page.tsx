@@ -47,7 +47,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   return (
-    <main className="flex flex-col w-full max-w-full mx-auto">
+    <main className="flex flex-col w-full max-w-[1024px] mx-auto">
       <div className="pt-4 px-4">
         <h3 className="text-2xl text-white">
           {animeData.data.title} - {animeData.data.year}
@@ -72,7 +72,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="pt-4 px-4 flex md:flex-nowrap flex-wrap gap-2 text-white">
-        <div className="relative w-full min-w-[400px] aspect-[16/22] rounded-md overflow-hidden">
+        <div className="relative w-full max-w-full md:max-w-[400px] aspect-[16/22] rounded-md overflow-hidden">
           <Image
             src={animeData.data.images.webp.image_url}
             alt="..."
@@ -81,7 +81,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             className=""
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full max-w-[600px]">
           <p className="font-semibold text-2xl mb-1">Synopsis</p>
           <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
           <p className="text-justify text-xl">{animeData.data.synopsis}</p>

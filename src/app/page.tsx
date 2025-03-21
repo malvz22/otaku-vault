@@ -51,14 +51,14 @@ const Home = async () => {
   return (
     <>
       {/* most popular anime */}
-      <section className="flex flex-col justify-center items-center px-3 w-full max-w-full pb-3">
+      <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Most Popular" linkHref="/popular" linkTitle="View All">
           <IoStarSharp />
         </Header>
         <AnimeList api={topAnime} />
       </section>
       {/* Recommended Anime*/}
-      <section className="flex flex-col px-3 w-full max-w-full pb-3">
+      <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Recommended" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
