@@ -16,10 +16,6 @@ interface Data {
 }
 
 const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
-  // console.log(typeof api);
-  // const anime = Object.values(api);
-  // console.log(anime);
-
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
       {api.data?.map((anime: Data) => {
@@ -38,6 +34,7 @@ const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
                   fill
                   style={{ objectFit: "cover" }}
                   className="hover:scale-110 transition-all duration-700"
+                  sizes="100%"
                 />
               </div>
 

@@ -34,6 +34,51 @@ interface Data {
   trailer: {
     youtube_id: string;
   };
+  titles: {
+    type: string;
+    title: string;
+  }[];
+  type: string;
+  status: string;
+  aired: {
+    string: string;
+  };
+  broadcast: {
+    string: string;
+  };
+  producers: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  licensors: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  studios: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  source: string;
+  genres: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  themes: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  demographics: {
+    name: string;
+    url: string;
+    mal_id: number;
+  }[];
+  duration: string;
+  rating: string;
 }
 
 // interface RandomizedData extends Data {
