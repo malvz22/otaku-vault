@@ -18,6 +18,11 @@ interface Data {
 }
 
 const Home = async () => {
+  const seasonsNow = await getAnimeResponse({
+    resource: "seasons/now",
+    query: "limit=8",
+  });
+
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
     query: "limit=20",
@@ -32,19 +37,24 @@ const Home = async () => {
 
   return (
     <>
+      <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
+        <Header
+          title="Current Season"
+          linkHref="/current-season"
+          linkTitle="View More"
+        >
+          <IoStarSharp />
+        </Header>
+        <AnimeList api={seasonsNow} />
+      </section>
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
-        <Header title="Most Popular" linkHref="/popular" linkTitle="View All">
+        <Header title="Most Popular" linkHref="/popular" linkTitle="View More">
           <IoStarSharp />
         </Header>
         <AnimeList api={topAnime} />
       </section>
-      {/* <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
-        <Header title="Latest" linkHref="" linkTitle="">
-          <IoStarSharp />
-        </Header>
-        <AnimeList api={latestAnime} />
-      </section> */}
+
       {/* Recommended Anime*/}
       <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Recommended" linkHref="" linkTitle="">

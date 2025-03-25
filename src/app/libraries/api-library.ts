@@ -54,10 +54,6 @@ export const getAnimeResponse = async ({
   resource,
   query = "",
 }: ApiProps): Promise<ApiResponse> => {
-  // const response = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${query ? `?${query}` : ""}`
-  // );
-
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
     query ? `${query}` : ""
   }`;
@@ -74,7 +70,14 @@ export const getAnimeResponse = async ({
     throw new Error("Invalid API response structure.");
   }
 
-  return animeData;
+  const uniqueData = animeData.data.reduce((acc: Data[], anime: Data) => {
+    if (!acc.some((entry) => entry.mal_id === anime.mal_id)) {
+      acc.push(anime);
+    }
+    return acc;
+  }, []);
+
+  return { ...animeData, data: uniqueData };
 };
 
 export const getAnimeResponseObject = async ({
