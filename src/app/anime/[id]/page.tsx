@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
 import { getAnimeResponseObject } from "@/app/libraries/api-library";
 import Image from "next/image";

@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import AnimeList from "./components/AnimeList/index";
 import Header from "./components/AnimeList/Header";
 import {
