@@ -248,18 +248,34 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
           </div>
           <VideoPlayerPage youtubeId={animeData.data.trailer.youtube_id} />
-          <div>
+          <div className="mb-3">
             <p className="font-semibold text-2xl mb-1">Synopsis</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <p className="text-justify text-xl">{animeData.data.synopsis}</p>
           </div>
-          {/* <div>
+          <div className="mb-2">
             <p className="font-semibold text-2xl mb-1">Related Entries</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <div className="flex flex-col gap-2">
+              {relations.data.map((relation, index) => (
+                <div key={index}>
+                  <p>{relation.relation}</p>
+                  {relation.entry.map((entry) => (
+                    <div key={entry.mal_id}>
+                      <Link
+                        className="text-blue-400 hover:underline"
+                        href={`/anime/${entry.mal_id}`}
+                      >
+                        {entry.name}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))}
+
               <div className="flex flex-row gap-2"></div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </main>
