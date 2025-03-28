@@ -1,6 +1,5 @@
 export const revalidate = 3600;
 
-import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
 import {
   getAnimeResponse,
   getAnimeResponseObject,
@@ -11,29 +10,29 @@ import Link from "next/link";
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  const animeData = await getAnimeResponseObject({
-    resource: `anime/${id}`,
+  const mangaData = await getAnimeResponseObject({
+    resource: `manga/${id}`,
   });
 
   const relations = await getAnimeResponse({
-    resource: `anime/${id}/relations`,
+    resource: `manga/${id}/relations`,
   });
 
-  if (!animeData?.data) {
-    return <div>No anime data found.</div>;
+  if (!mangaData?.data) {
+    return <div>No manga data found.</div>;
   }
+
+  console.log(mangaData.data);
 
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
       <div className="pt-4 px-4">
-        <h3 className="text-2xl text-white">
-          {animeData.data.title} - {animeData.data.year}
-        </h3>
+        <h3 className="text-2xl text-white">{mangaData.data.title}</h3>
       </div>
 
       <div className="pt-4 px-4 flex flex-col md:flex-row gap-2 w-full max-w-full text-white">
         <Image
-          src={animeData.data.images.webp.image_url}
+          src={mangaData.data.images.webp.image_url}
           alt="..."
           width={500}
           height={0}
@@ -41,7 +40,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         />
         <aside className="w-[300px] hidden md:flex flex-col gap-4">
           <Image
-            src={animeData.data.images.webp.image_url}
+            src={mangaData.data.images.webp.image_url}
             alt="..."
             width={500}
             height={0}
@@ -51,7 +50,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="flex flex-col">
             <h3 className="text-xl font-semibold">Alternative Titles</h3>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
-            {animeData.data.titles.map((title, index) => (
+            {mangaData.data.titles.map((title, index) => (
               <div className="flex flex-col" key={index}>
                 <p key={index} className="text-lg">
                   <span className="font-semibold">{title.type}:</span>{" "}
@@ -67,71 +66,23 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <div className="flex flex-col">
               <p className="text-lg">
                 <span className="font-semibold">Type:</span>{" "}
-                {animeData.data.type}
+                {mangaData.data.type}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Episodes:</span>{" "}
-                {animeData.data.episodes}
+                <span className="font-semibold">Volumes:</span>{" "}
+                {mangaData.data.volumes}
               </p>
               <p className="text-lg">
                 <span className="font-semibold">Status:</span>{" "}
-                {animeData.data.status}
+                {mangaData.data.status}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Aired:</span>{" "}
-                {animeData.data.aired.string}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Broadcast:</span>{" "}
-                {animeData.data.broadcast.string}
-              </p>
-              <div className="text-lg">
-                <span className="font-semibold">Producers:</span>{" "}
-                {animeData.data.producers.map((producer) => (
-                  <p key={producer.mal_id}>
-                    <Link
-                      href={producer.url}
-                      key={producer.mal_id}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {producer.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Licensors:</span>{" "}
-                {animeData.data.licensors.map((licensor) => (
-                  <p key={licensor.mal_id}>
-                    <Link
-                      href={licensor.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {licensor.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Studios:</span>{" "}
-                {animeData.data.studios.map((studio) => (
-                  <p key={studio.mal_id}>
-                    <Link
-                      href={studio.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {studio.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <p className="text-lg">
-                <span className="font-semibold">Source:</span>{" "}
-                {animeData.data.source}
+                <span className="font-semibold">Published:</span>{" "}
+                {mangaData.data.published.string}
               </p>
               <div className="text-lg">
                 <span className="font-semibold">Genres:</span>{" "}
-                {animeData.data.genres.map((genre) => (
+                {mangaData.data.genres.map((genre) => (
                   <p key={genre.mal_id}>
                     <Link
                       href={genre.url}
@@ -144,7 +95,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
               <div className="text-lg">
                 <span className="font-semibold">Themes:</span>{" "}
-                {animeData.data.themes.map((theme) => (
+                {mangaData.data.themes.map((theme) => (
                   <p key={theme.mal_id}>
                     <Link
                       href={theme.url}
@@ -157,25 +108,22 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
               <div className="text-lg">
                 <span className="font-semibold">Demographic:</span>{" "}
-                {animeData.data.demographics.map((demographic) => (
-                  <p key={demographic.mal_id}>
-                    <Link
-                      href={demographic.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {demographic.name}
-                    </Link>{" "}
-                  </p>
+                {mangaData.data.demographics.map((demographic) => (
+                  <p key={demographic.mal_id}>{demographic.name}</p>
                 ))}
               </div>
-              <p className="text-lg">
-                <span className="font-semibold">Duration:</span>{" "}
-                {animeData.data.duration}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Rating:</span>{" "}
-                {animeData.data.rating}
-              </p>
+              <div className="text-lg">
+                <span className="font-semibold">Serialization:</span>{" "}
+                {mangaData.data.serializations.map((serialization) => (
+                  <p key={serialization.mal_id}>{serialization.name}</p>
+                ))}
+              </div>
+              <div className="text-lg">
+                <span className="font-semibold">Authors:</span>{" "}
+                {mangaData.data.authors.map((author) => (
+                  <p key={author.mal_id}>{author.name}</p>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -185,15 +133,15 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <div className="flex flex-col">
               <p className="text-lg">
                 <span className="font-semibold">Score:</span>{" "}
-                {animeData.data.score}
+                {mangaData.data.score}
               </p>
               <p className="text-lg">
                 <span className="font-semibold">Ranked:</span>{" "}
-                {animeData.data.rank}
+                {mangaData.data.rank}
               </p>
               <p className="text-lg">
                 <span className="font-semibold">Popularity:</span> #
-                {animeData.data.popularity}
+                {mangaData.data.popularity}
               </p>
             </div>
           </div>
@@ -203,32 +151,31 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="mb-3 flex gap-2 w-full max-w-full text-white overflow-x-auto">
             <div className="w-36 flex flex-col justify-center items-center rounded border-white border-solid border-[1px] p-2">
               <h3>SCORE</h3>
-              <p>{animeData.data.score}</p>
+              <p>{mangaData.data.score}</p>
             </div>
             <div className="w-36 flex flex-col justify-center items-center rounded border-white border-solid border-[1px] p-2">
               <h3>RANKED</h3>
-              <p>#{animeData.data.rank}</p>
+              <p>#{mangaData.data.rank}</p>
             </div>
             <div className="w-36 flex flex-col justify-center items-center rounded border-white border-solid border-[1px] p-2">
               <h3>POPULARITY</h3>
-              <p>#{animeData.data.popularity}</p>
+              <p>#{mangaData.data.popularity}</p>
             </div>
             <div className="w-36 flex flex-col justify-center items-center rounded border-white border-solid border-[1px] p-2">
               <h3>EPISODES</h3>
-              <p>{animeData.data.episodes}</p>
+              <p>{mangaData.data.episodes}</p>
             </div>
           </div>
-          <VideoPlayerPage youtubeId={animeData.data.trailer.youtube_id} />
           <div className="mb-3">
-            <p className="font-semibold text-2xl mb-1">Synopsis</p>
+            <p className="font-semibold text-xl">Synopsis</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
-            <p className="text-justify text-xl">{animeData.data.synopsis}</p>
+            <p className="text-justify text-xl">{mangaData.data.synopsis}</p>
           </div>
           <div className="flex flex-col md:hidden">
             <div className="flex flex-col">
               <h3 className="text-xl font-semibold">Alternative Titles</h3>
               <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
-              {animeData.data.titles.map((title, index) => (
+              {mangaData.data.titles.map((title, index) => (
                 <div className="flex flex-col" key={index}>
                   <p key={index} className="text-lg">
                     <span className="font-semibold">{title.type}:</span>{" "}
@@ -244,71 +191,23 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="flex flex-col">
                 <p className="text-lg">
                   <span className="font-semibold">Type:</span>{" "}
-                  {animeData.data.type}
+                  {mangaData.data.type}
                 </p>
                 <p className="text-lg">
-                  <span className="font-semibold">Episodes:</span>{" "}
-                  {animeData.data.episodes}
+                  <span className="font-semibold">Volumes:</span>{" "}
+                  {mangaData.data.volumes}
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">Status:</span>{" "}
-                  {animeData.data.status}
+                  {mangaData.data.status}
                 </p>
                 <p className="text-lg">
-                  <span className="font-semibold">Aired:</span>{" "}
-                  {animeData.data.aired.string}
-                </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Broadcast:</span>{" "}
-                  {animeData.data.broadcast.string}
-                </p>
-                <div className="text-lg">
-                  <span className="font-semibold">Producers:</span>{" "}
-                  {animeData.data.producers.map((producer) => (
-                    <p key={producer.mal_id}>
-                      <Link
-                        href={producer.url}
-                        key={producer.mal_id}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {producer.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Licensors:</span>{" "}
-                  {animeData.data.licensors.map((licensor) => (
-                    <p key={licensor.mal_id}>
-                      <Link
-                        href={licensor.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {licensor.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Studios:</span>{" "}
-                  {animeData.data.studios.map((studio) => (
-                    <p key={studio.mal_id}>
-                      <Link
-                        href={studio.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {studio.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <p className="text-lg">
-                  <span className="font-semibold">Source:</span>{" "}
-                  {animeData.data.source}
+                  <span className="font-semibold">Published:</span>{" "}
+                  {mangaData.data.published.string}
                 </p>
                 <div className="text-lg">
                   <span className="font-semibold">Genres:</span>{" "}
-                  {animeData.data.genres.map((genre) => (
+                  {mangaData.data.genres.map((genre) => (
                     <p key={genre.mal_id}>
                       <Link
                         href={genre.url}
@@ -321,7 +220,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
                 <div className="text-lg">
                   <span className="font-semibold">Themes:</span>{" "}
-                  {animeData.data.themes.map((theme) => (
+                  {mangaData.data.themes.map((theme) => (
                     <p key={theme.mal_id}>
                       <Link
                         href={theme.url}
@@ -334,25 +233,22 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
                 <div className="text-lg">
                   <span className="font-semibold">Demographic:</span>{" "}
-                  {animeData.data.demographics.map((demographic) => (
-                    <p key={demographic.mal_id}>
-                      <Link
-                        href={demographic.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {demographic.name}
-                      </Link>{" "}
-                    </p>
+                  {mangaData.data.demographics.map((demographic) => (
+                    <p key={demographic.mal_id}>{demographic.name}</p>
                   ))}
                 </div>
-                <p className="text-lg">
-                  <span className="font-semibold">Duration:</span>{" "}
-                  {animeData.data.duration}
-                </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Rating:</span>{" "}
-                  {animeData.data.rating}
-                </p>
+                <div className="text-lg">
+                  <span className="font-semibold">Serialization:</span>{" "}
+                  {mangaData.data.serializations.map((serialization) => (
+                    <p key={serialization.mal_id}>{serialization.name}</p>
+                  ))}
+                </div>
+                <div className="text-lg">
+                  <span className="font-semibold">Authors:</span>{" "}
+                  {mangaData.data.authors.map((author) => (
+                    <p key={author.mal_id}>{author.name}</p>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -362,21 +258,21 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="flex flex-col">
                 <p className="text-lg">
                   <span className="font-semibold">Score:</span>{" "}
-                  {animeData.data.score}
+                  {mangaData.data.score}
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">Ranked:</span>{" "}
-                  {animeData.data.rank}
+                  {mangaData.data.rank}
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">Popularity:</span> #
-                  {animeData.data.popularity}
+                  {mangaData.data.popularity}
                 </p>
               </div>
             </div>
           </div>
           <div className="mb-2">
-            <p className="font-semibold text-2xl mb-1">Related Entries</p>
+            <p className="font-semibold text-xl">Related Entries</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <div className="flex flex-col gap-2">
               {relations.data.map((relation, index) => (

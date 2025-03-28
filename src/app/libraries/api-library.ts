@@ -81,6 +81,18 @@ interface Data {
   rating: string;
   relation: string;
   entry: Entry[];
+  published: {
+    string: string;
+  };
+  volumes: number;
+  serializations: {
+    name: string;
+    mal_id: number;
+  }[];
+  authors: {
+    mal_id: number;
+    name: string;
+  }[];
 }
 
 interface Entry {
