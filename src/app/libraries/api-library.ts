@@ -86,6 +86,7 @@ interface Data {
 interface Entry {
   mal_id: string;
   name: string;
+  type: string;
 }
 
 // interface RandomizedData extends Data {
