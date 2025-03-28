@@ -1,7 +1,10 @@
 export const revalidate = 3600;
 
 import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
-import { getAnimeResponseObject } from "@/app/libraries/api-library";
+import {
+  getAnimeResponse,
+  getAnimeResponseObject,
+} from "@/app/libraries/api-library";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -49,7 +52,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     resource: `anime/${id}`,
   });
 
-  const relations = await getAnimeResponseObject({
+  const relations = await getAnimeResponse({
     resource: `anime/${id}/relations`,
   });
 

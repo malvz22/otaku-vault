@@ -79,6 +79,13 @@ interface Data {
   }[];
   duration: string;
   rating: string;
+  relation: string;
+  entry: Entry[];
+}
+
+interface Entry {
+  mal_id: string;
+  name: string;
 }
 
 // interface RandomizedData extends Data {
@@ -124,6 +131,29 @@ export const getAnimeResponse = async ({
 
   return { ...animeData, data: uniqueData };
 };
+
+// export const getAnimeRelation = async ({
+//   resource,
+//   query = "",
+// }: ApiProps): Promise<ApiResponseObject> => {
+//   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+//     query ? `${query}` : ""
+//   }`;
+
+//   const response = await fetch(url);
+
+//   if (!response.ok) {
+//     throw new Error(`Failed to fetch data: ${response.statusText}`);
+//   }
+
+//   const animeRelation: Relations[] = await response.json();
+
+//   if (!animeRelation) {
+//     throw new Error("Invalid API response structure.");
+//   }
+
+//   return animeRelation;
+// };
 
 export const getAnimeResponseObject = async ({
   resource,
