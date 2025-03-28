@@ -20,10 +20,10 @@ interface Data {
 }
 
 const Home = async () => {
-  const seasonsNow = await getAnimeResponse({
-    resource: "seasons/now",
-    query: "limit=8",
-  });
+  // const seasonsNow = await getAnimeResponse({
+  //   resource: "seasons/now",
+  //   query: "limit=8",
+  // });
 
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
@@ -39,7 +39,7 @@ const Home = async () => {
 
   return (
     <>
-      <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
+      {/* <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header
           title="Current Season"
           linkHref="/current-season"
@@ -48,7 +48,7 @@ const Home = async () => {
           <IoStarSharp />
         </Header>
         <AnimeList api={seasonsNow} />
-      </section>
+      </section> */}
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Most Popular" linkHref="/popular" linkTitle="View More">

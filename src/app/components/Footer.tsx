@@ -11,6 +11,7 @@ const Footer = () => {
           <Link href="/">Home</Link>
           <Link href="/">Search Anime</Link>
           <Link href="/popular">Most Popular</Link>
+          <Link href="/current-season">Seasonal</Link>
         </nav>
         <div className="flex flex-row gap-4">
           <Link href={"/"}>
