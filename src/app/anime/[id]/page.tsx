@@ -90,7 +90,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 {animeData.data.producers.map((producer) => (
                   <p key={producer.mal_id}>
                     <Link
-                      href={producer.url}
+                      href={`producer/${producer.mal_id}`}
                       key={producer.mal_id}
                       className="text-blue-400 hover:underline"
                     >

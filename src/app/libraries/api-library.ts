@@ -23,6 +23,9 @@ interface Data {
     webp: {
       image_url: string;
     };
+    jpg: {
+      image_url: string;
+    };
   };
   mal_id: string;
   year: number;
@@ -93,6 +96,12 @@ interface Data {
     mal_id: number;
     name: string;
   }[];
+  established: string;
+  favorites: number;
+  external: {
+    name: string;
+    url: string;
+  }[];
 }
 
 interface Entry {
@@ -145,28 +154,28 @@ export const getAnimeResponse = async ({
   return { ...animeData, data: uniqueData };
 };
 
-// export const getAnimeRelation = async ({
-//   resource,
-//   query = "",
-// }: ApiProps): Promise<ApiResponseObject> => {
-//   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
-//     query ? `${query}` : ""
-//   }`;
+export const getProducer = async ({
+  resource,
+  query = "",
+}: ApiProps): Promise<ApiResponseObject> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+    query ? `${query}` : ""
+  }`;
 
-//   const response = await fetch(url);
+  const response = await fetch(url);
 
-//   if (!response.ok) {
-//     throw new Error(`Failed to fetch data: ${response.statusText}`);
-//   }
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
 
-//   const animeRelation: Relations[] = await response.json();
+  const producer = await response.json();
 
-//   if (!animeRelation) {
-//     throw new Error("Invalid API response structure.");
-//   }
+  if (!producer) {
+    throw new Error("Invalid API response structure.");
+  }
 
-//   return animeRelation;
-// };
+  return producer;
+};
 
 export const getAnimeResponseObject = async ({
   resource,
