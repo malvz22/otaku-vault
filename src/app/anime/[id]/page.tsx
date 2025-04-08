@@ -23,12 +23,15 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     return <div>No anime data found.</div>;
   }
 
+  console.log(animeData);
+
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
-      <div className="pt-4 px-4">
-        <h3 className="text-2xl text-white">
-          {animeData.data.title} - {animeData.data.year}
-        </h3>
+      <div className="pt-4 px-4 flex flex-row gap-2">
+        <h3 className="text-2xl text-white">{animeData.data.title} </h3>
+        {animeData.data.year && (
+          <h3 className="text-2xl text-white">- {animeData.data.year} </h3>
+        )}
       </div>
 
       <div className="pt-4 px-4 flex flex-col md:flex-row gap-2 w-full max-w-full text-white">
@@ -81,93 +84,115 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <span className="font-semibold">Aired:</span>{" "}
                 {animeData.data.aired.string}
               </p>
-              <p className="text-lg">
-                <span className="font-semibold">Broadcast:</span>{" "}
-                {animeData.data.broadcast.string}
-              </p>
-              <div className="text-lg">
-                <span className="font-semibold">Producers:</span>{" "}
-                {animeData.data.producers.map((producer) => (
-                  <p key={producer.mal_id}>
-                    <Link
-                      href={`producer/${producer.mal_id}`}
-                      key={producer.mal_id}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {producer.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Licensors:</span>{" "}
-                {animeData.data.licensors.map((licensor) => (
-                  <p key={licensor.mal_id}>
-                    <Link
-                      href={licensor.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {licensor.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Studios:</span>{" "}
-                {animeData.data.studios.map((studio) => (
-                  <p key={studio.mal_id}>
-                    <Link
-                      href={studio.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {studio.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
+              {animeData.data.broadcast.string && (
+                <p className="text-lg">
+                  <span className="font-semibold">Broadcast:</span>{" "}
+                  {animeData.data.broadcast.string}
+                </p>
+              )}
+              {animeData.data.producers &&
+                animeData.data.producers.length > 0 && (
+                  <div className="text-lg">
+                    <span className="font-semibold">Producers:</span>{" "}
+                    {animeData.data.producers.map((producer) => (
+                      <p key={producer.mal_id}>
+                        <Link
+                          href={`producer/${producer.mal_id}`}
+                          key={producer.mal_id}
+                          className="text-blue-400 hover:underline"
+                        >
+                          {producer.name}
+                        </Link>{" "}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              {animeData.data.licensors &&
+                animeData.data.licensors.length > 0 && (
+                  <div className="text-lg">
+                    <span className="font-semibold">Licensors:</span>{" "}
+                    {animeData.data.licensors.map((licensor) => (
+                      <p key={licensor.mal_id}>
+                        <Link
+                          href={licensor.url}
+                          className="text-blue-400 hover:underline"
+                        >
+                          {licensor.name}
+                        </Link>{" "}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              {animeData.data.studios && animeData.data.studios.length > 0 && (
+                <div className="text-lg">
+                  <span className="font-semibold">Studios:</span>{" "}
+                  {animeData.data.studios.map((studio) => (
+                    <p key={studio.mal_id}>
+                      <Link
+                        href={studio.url}
+                        className="text-blue-400 hover:underline"
+                      >
+                        {studio.name}
+                      </Link>{" "}
+                    </p>
+                  ))}
+                </div>
+              )}
+
               <p className="text-lg">
                 <span className="font-semibold">Source:</span>{" "}
                 {animeData.data.source}
               </p>
-              <div className="text-lg">
-                <span className="font-semibold">Genres:</span>{" "}
-                {animeData.data.genres.map((genre) => (
-                  <p key={genre.mal_id}>
-                    <Link
-                      href={genre.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {genre.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Themes:</span>{" "}
-                {animeData.data.themes.map((theme) => (
-                  <p key={theme.mal_id}>
-                    <Link
-                      href={theme.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {theme.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
-              <div className="text-lg">
-                <span className="font-semibold">Demographic:</span>{" "}
-                {animeData.data.demographics.map((demographic) => (
-                  <p key={demographic.mal_id}>
-                    <Link
-                      href={demographic.url}
-                      className="text-blue-400 hover:underline"
-                    >
-                      {demographic.name}
-                    </Link>{" "}
-                  </p>
-                ))}
-              </div>
+
+              {animeData.data.genres && animeData.data.genres.length > 0 && (
+                <div className="text-lg">
+                  <span className="font-semibold">Genres:</span>{" "}
+                  {animeData.data.genres.map((genre) => (
+                    <p key={genre.mal_id}>
+                      <Link
+                        href={genre.url}
+                        className="text-blue-400 hover:underline"
+                      >
+                        {genre.name}
+                      </Link>{" "}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {animeData.data.themes && animeData.data.themes.length > 0 && (
+                <div className="text-lg">
+                  <span className="font-semibold">Themes:</span>{" "}
+                  {animeData.data.themes.map((theme) => (
+                    <p key={theme.mal_id}>
+                      <Link
+                        href={theme.url}
+                        className="text-blue-400 hover:underline"
+                      >
+                        {theme.name}
+                      </Link>{" "}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {animeData.data.demographics &&
+                animeData.data.demographics.length > 0 && (
+                  <div className="text-lg">
+                    <span className="font-semibold">Demographic:</span>{" "}
+                    {animeData.data.demographics.map((demographic) => (
+                      <p key={demographic.mal_id}>
+                        <Link
+                          href={demographic.url}
+                          className="text-blue-400 hover:underline"
+                        >
+                          {demographic.name}
+                        </Link>{" "}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
               <p className="text-lg">
                 <span className="font-semibold">Duration:</span>{" "}
                 {animeData.data.duration}
@@ -258,93 +283,116 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                   <span className="font-semibold">Aired:</span>{" "}
                   {animeData.data.aired.string}
                 </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Broadcast:</span>{" "}
-                  {animeData.data.broadcast.string}
-                </p>
-                <div className="text-lg">
-                  <span className="font-semibold">Producers:</span>{" "}
-                  {animeData.data.producers.map((producer) => (
-                    <p key={producer.mal_id}>
-                      <Link
-                        href={producer.url}
-                        key={producer.mal_id}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {producer.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Licensors:</span>{" "}
-                  {animeData.data.licensors.map((licensor) => (
-                    <p key={licensor.mal_id}>
-                      <Link
-                        href={licensor.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {licensor.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Studios:</span>{" "}
-                  {animeData.data.studios.map((studio) => (
-                    <p key={studio.mal_id}>
-                      <Link
-                        href={studio.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {studio.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
+                {animeData.data.broadcast.string && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Broadcast:</span>{" "}
+                    {animeData.data.broadcast.string}
+                  </p>
+                )}
+                {animeData.data.producers &&
+                  animeData.data.producers.length > 0 && (
+                    <div className="text-lg">
+                      <span className="font-semibold">Producers:</span>{" "}
+                      {animeData.data.producers.map((producer) => (
+                        <p key={producer.mal_id}>
+                          <Link
+                            href={`producer/${producer.mal_id}`}
+                            key={producer.mal_id}
+                            className="text-blue-400 hover:underline"
+                          >
+                            {producer.name}
+                          </Link>{" "}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                {animeData.data.licensors &&
+                  animeData.data.licensors.length > 0 && (
+                    <div className="text-lg">
+                      <span className="font-semibold">Licensors:</span>{" "}
+                      {animeData.data.licensors.map((licensor) => (
+                        <p key={licensor.mal_id}>
+                          <Link
+                            href={licensor.url}
+                            className="text-blue-400 hover:underline"
+                          >
+                            {licensor.name}
+                          </Link>{" "}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                {animeData.data.studios &&
+                  animeData.data.studios.length > 0 && (
+                    <div className="text-lg">
+                      <span className="font-semibold">Studios:</span>{" "}
+                      {animeData.data.studios.map((studio) => (
+                        <p key={studio.mal_id}>
+                          <Link
+                            href={studio.url}
+                            className="text-blue-400 hover:underline"
+                          >
+                            {studio.name}
+                          </Link>{" "}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
                 <p className="text-lg">
                   <span className="font-semibold">Source:</span>{" "}
                   {animeData.data.source}
                 </p>
-                <div className="text-lg">
-                  <span className="font-semibold">Genres:</span>{" "}
-                  {animeData.data.genres.map((genre) => (
-                    <p key={genre.mal_id}>
-                      <Link
-                        href={genre.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {genre.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Themes:</span>{" "}
-                  {animeData.data.themes.map((theme) => (
-                    <p key={theme.mal_id}>
-                      <Link
-                        href={theme.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {theme.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
-                <div className="text-lg">
-                  <span className="font-semibold">Demographic:</span>{" "}
-                  {animeData.data.demographics.map((demographic) => (
-                    <p key={demographic.mal_id}>
-                      <Link
-                        href={demographic.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {demographic.name}
-                      </Link>{" "}
-                    </p>
-                  ))}
-                </div>
+
+                {animeData.data.genres && animeData.data.genres.length > 0 && (
+                  <div className="text-lg">
+                    <span className="font-semibold">Genres:</span>{" "}
+                    {animeData.data.genres.map((genre) => (
+                      <p key={genre.mal_id}>
+                        <Link
+                          href={genre.url}
+                          className="text-blue-400 hover:underline"
+                        >
+                          {genre.name}
+                        </Link>{" "}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {animeData.data.themes && animeData.data.themes.length > 0 && (
+                  <div className="text-lg">
+                    <span className="font-semibold">Themes:</span>{" "}
+                    {animeData.data.themes.map((theme) => (
+                      <p key={theme.mal_id}>
+                        <Link
+                          href={theme.url}
+                          className="text-blue-400 hover:underline"
+                        >
+                          {theme.name}
+                        </Link>{" "}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {animeData.data.demographics &&
+                  animeData.data.demographics.length > 0 && (
+                    <div className="text-lg">
+                      <span className="font-semibold">Demographic:</span>{" "}
+                      {animeData.data.demographics.map((demographic) => (
+                        <p key={demographic.mal_id}>
+                          <Link
+                            href={demographic.url}
+                            className="text-blue-400 hover:underline"
+                          >
+                            {demographic.name}
+                          </Link>{" "}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
                 <p className="text-lg">
                   <span className="font-semibold">Duration:</span>{" "}
                   {animeData.data.duration}
