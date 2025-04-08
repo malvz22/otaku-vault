@@ -16,11 +16,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const id = (await params).id;
 
   const producer = await getProducer({ resource: `producers/${id}/full` });
-  const anime = await getProducer({
-    resource: `producers/${id}/anime`,
-  });
-
-  console.log(anime.data);
 
   const iconMap: Record<string, IconType> = {
     "x.com": FaSquareXTwitter,
