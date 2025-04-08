@@ -1,10 +1,7 @@
 export const revalidate = 3600;
 
 import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
-import {
-  getAnimeResponse,
-  getAnimeResponseObject,
-} from "@/app/libraries/api-library";
+import { getAnimeResponseObject } from "@/app/libraries/api-library";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,11 +9,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
   const animeData = await getAnimeResponseObject({
-    resource: `anime/${id}`,
-  });
-
-  const relations = await getAnimeResponse({
-    resource: `anime/${id}/relations`,
+    resource: `anime/${id}/full`,
   });
 
   if (!animeData?.data) {
@@ -427,7 +420,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <p className="font-semibold text-2xl mb-1">Related Entries</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <div className="flex flex-col gap-2">
-              {relations.data.map((relation, index) => (
+              {animeData.data.relations.map((relation, index) => (
                 <div key={index}>
                   <p>{relation.relation}</p>
                   {relation.entry.map((entry) => (

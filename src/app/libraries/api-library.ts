@@ -102,6 +102,10 @@ interface Data {
     name: string;
     url: string;
   }[];
+  relations: {
+    relation: string;
+    entry: Entry[];
+  }[];
 }
 
 interface Entry {
