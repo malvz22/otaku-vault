@@ -26,8 +26,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const limitedCharacterData = characterData.data.slice(0, 10);
 
-  console.log(limitedCharacterData);
-
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
       <div className="pt-4 px-4 flex flex-row gap-2">
@@ -470,7 +468,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                       <Image
                         src={character.character.images.webp.image_url}
                         width={45}
-                        height={0}
+                        height={62}
                         alt={character.character.name}
                         className="w-full max-w-[45px] aspect-[16/22] rounded-md overflow-hidden"
                       />
@@ -488,7 +486,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                         <Image
                           src={japaneseVA.person.images.jpg.image_url}
                           width={45}
-                          height={0}
+                          height={62}
                           alt={japaneseVA.person.name}
                           className="w-full max-w-[45px] aspect-[16/22] rounded-md overflow-hidden"
                         />

@@ -12,7 +12,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
   const producer = await getProducer({ resource: `producers/${id}/full` });
