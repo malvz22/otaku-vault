@@ -1,7 +1,10 @@
 export const revalidate = 3600;
 
 import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
-import { getAnimeResponseObject } from "@/app/libraries/api-library";
+import {
+  getAnimeResponseObject,
+  getDataResponse,
+} from "@/app/libraries/api-library";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,11 +15,18 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     resource: `anime/${id}/full`,
   });
 
+  const characterData = await getDataResponse({
+    resource: `anime/${id}/characters`,
+    query: `limit=10`,
+  });
+
   if (!animeData?.data) {
     return <div>No anime data found.</div>;
   }
 
-  console.log(animeData);
+  const limitedCharacterData = characterData.data.slice(0, 10);
+
+  console.log(limitedCharacterData);
 
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
@@ -438,6 +448,55 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               ))}
 
               <div className="flex flex-row gap-2"></div>
+            </div>
+          </div>
+          <div className="mb-2">
+            <p className="font-semibold text-2xl mb-1">
+              Character & Voice Actors
+            </p>
+            <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full max-w-full">
+              {limitedCharacterData.map((character) => {
+                const japaneseVA = character.voice_actors.find(
+                  (va) => va.language === "Japanese"
+                );
+                return (
+                  <div
+                    key={character.mal_id}
+                    className="flex flex-row justify-between"
+                  >
+                    {/* Display Character */}
+                    <div className="flex flex-row gap-1 items-start">
+                      <Image
+                        src={character.character.images.webp.image_url}
+                        width={45}
+                        height={0}
+                        alt={character.character.name}
+                        className="w-full max-w-[45px] aspect-[16/22] rounded-md overflow-hidden"
+                      />
+                      <div className="flex flex-col gap-1 text-[12px]">
+                        <p>{character.character.name}</p>
+                        <p>{character.role}</p>
+                      </div>
+                    </div>
+                    {japaneseVA && (
+                      <div className="flex flex-row gap-1 items-start">
+                        <div className="flex flex-col gap-1 text-[12px] text-end">
+                          <p>{japaneseVA.person.name}</p>
+                          <p>{japaneseVA.language}</p>
+                        </div>
+                        <Image
+                          src={japaneseVA.person.images.jpg.image_url}
+                          width={45}
+                          height={0}
+                          alt={japaneseVA.person.name}
+                          className="w-full max-w-[45px] aspect-[16/22] rounded-md overflow-hidden"
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

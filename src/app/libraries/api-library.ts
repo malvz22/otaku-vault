@@ -106,6 +106,27 @@ interface Data {
     relation: string;
     entry: Entry[];
   }[];
+  voice_actors: {
+    language: string;
+    person: {
+      name: string;
+      images: {
+        jpg: {
+          image_url: string;
+        };
+      };
+    };
+  }[];
+  character: {
+    images: {
+      webp: {
+        image_url: string;
+      };
+    };
+    mal_id: string;
+    name: string;
+  };
+  role: string;
 }
 
 interface Entry {
@@ -179,6 +200,25 @@ export const getProducer = async ({
   }
 
   return producer;
+};
+
+export const getDataResponse = async ({
+  resource,
+  query = "",
+}: ApiProps): Promise<ApiResponse> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+      query ? `${query}` : ""
+    }`
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+
+  return data;
 };
 
 export const getAnimeResponseObject = async ({
