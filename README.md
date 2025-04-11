@@ -58,3 +58,8 @@ This app is deployed on Vercel.
 ### 🔹 Search Results
 
 ![Search Page](public/screenshots/search-results.png)
+
+## 🏆 Credits
+
+- Developed by: [malvz22](https://github.com/malvz22)
+- API Used: [Jikan API](https://jikan.moe)
