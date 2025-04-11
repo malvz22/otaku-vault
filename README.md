@@ -45,6 +45,16 @@ npm run dev
 
 This app is deployed on Vercel.
 
-## Screenshots
+## 📸 Screenshots
 
-Comming soon...
+### 🔹 Home Page
+
+![Home Page](public/screenshots/home-page.png)
+
+### 🔹 Anime Info Page
+
+![Anime Detail Page](public/screenshots/anime-info.png)
+
+### 🔹 Search Results
+
+![Search Page](public/screenshots/search-results.png)
