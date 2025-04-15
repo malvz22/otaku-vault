@@ -127,6 +127,7 @@ interface Data {
     name: string;
   };
   role: string;
+  name: string;
 }
 
 interface Entry {

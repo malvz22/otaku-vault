@@ -6,7 +6,7 @@ const HeaderMenu: React.FC<TitleProps> = ({ title }) => {
   return (
     <div>
       <div className="p-8">
-        <h3 className="text-center text-2xl">{title}</h3>
+        <h3 className="text-center text-4xl">{title}</h3>
       </div>
     </div>
   );
