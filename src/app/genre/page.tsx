@@ -21,6 +21,8 @@ const Page = async () => {
     String.fromCharCode(65 + i)
   );
 
+  console.log(animeGenres);
+
   return (
     <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
       <HeaderMenu title="Genre Lists" />
@@ -48,12 +50,13 @@ const Page = async () => {
               <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
               <div className="flex flex-col gap-3">
                 {genres.map((genre) => (
-                  <p
+                  <Link
+                    href={`/genre/${genre.mal_id}?page=1`}
                     key={genre.mal_id}
                     className="text-lg text-white hover:text-[#1E90FF] transition-all duration-700 ease-in-out"
                   >
                     {genre.name}
-                  </p>
+                  </Link>
                 ))}
               </div>
             </section>

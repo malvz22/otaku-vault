@@ -8,11 +8,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAnimeResponse } from "../libraries/api-library";
 
-interface ApiResponse {
-  data: Data[];
-  pagination?: Pagination;
-}
-
 interface Data {
   title: string;
   images: {
@@ -35,7 +30,7 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const response: ApiResponse = await getAnimeResponse({
+      const response = await getAnimeResponse({
         resource: `top/anime`,
         query: `page=${page}`,
       });

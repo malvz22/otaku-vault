@@ -35,6 +35,7 @@ const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
                   style={{ objectFit: "cover" }}
                   className="hover:scale-110 transition-all duration-700"
                   sizes="100%"
+                  priority={true}
                 />
               </div>
 
