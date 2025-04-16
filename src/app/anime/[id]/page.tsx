@@ -149,14 +149,13 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="text-lg">
                   <span className="font-semibold">Genres:</span>{" "}
                   {animeData.data.genres.map((genre) => (
-                    <p key={genre.mal_id}>
-                      <Link
-                        href={genre.url}
-                        className="text-blue-400 hover:underline"
-                      >
-                        {genre.name}
-                      </Link>{" "}
-                    </p>
+                    <Link
+                      href={`/genre/${genre.mal_id}?page=1`}
+                      key={genre.mal_id}
+                      className="text-blue-400 hover:underline"
+                    >
+                      {genre.name}{" "}
+                    </Link>
                   ))}
                 </div>
               )}
