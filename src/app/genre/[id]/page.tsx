@@ -1,5 +1,4 @@
 import AnimeList from "@/app/components/AnimeList";
-import Header from "@/app/components/AnimeList/Header";
 import { getAnimeResponse } from "@/app/libraries/api-library";
 import Link from "next/link";
 import {
@@ -10,26 +9,35 @@ import {
 } from "react-icons/md";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
   searchParams: {
-    page?: number;
+    page: number;
   };
 }
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  const id = (await params).id;
-  const page = Number(searchParams.page) || 1;
+  // const id = (await params).id;
+  const { id } = await params;
+  // const page = Number(searchParams.page) || 1;
+  const { page } = await searchParams;
 
   const animeData = await getAnimeResponse({
     resource: `anime`,
     query: `genres=${id}&page=${page}`,
   });
 
-  console.log(animeData);
+  // const genreData = await getDataResponse({
+  //   resource: `genres/anime/`,
+  // });
+
+  // const genreId = Number(params.id);
+
+  // const genreName =
+  //   genreData.data.find((genre) => genre.mal_id === genreId)?.name || "Unknown";
 
   return (
     <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
-      <Header title={`Anime Genre ID: ${id}`} linkHref={""} linkTitle={""} />
+      {/* <Header title={`${genreName}`} linkHref={""} linkTitle={""} /> */}
       <AnimeList api={animeData} />
       <div className="flex flex-row gap-2 justify-center items-center py-4 px-2 text-2xl">
         <Link

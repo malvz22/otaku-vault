@@ -21,12 +21,10 @@ const Page = async () => {
     String.fromCharCode(65 + i)
   );
 
-  console.log(animeGenres);
-
   return (
     <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
       <HeaderMenu title="Genre Lists" />
-      <div className="flex flex-row gap-3 py-4 text-white justify-center w-full max-w-full">
+      <div className="flex flex-row gap-3 py-4 px-3 flex-wrap md:flex-nowrap text-white justify-center w-full max-w-full">
         {alphabet.map((letter) => (
           <Link
             key={letter}
