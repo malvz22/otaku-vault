@@ -170,7 +170,7 @@ export const getAnimeResponse = async ({
     query ? `${query}` : ""
   }`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
@@ -222,7 +222,8 @@ export const getDataResponse = async ({
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
       query ? `${query}` : ""
-    }`
+    }`,
+    { cache: "no-store" }
   );
 
   if (!response.ok) {
