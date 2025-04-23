@@ -10,9 +10,7 @@ import {
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: {
-    page: number;
-  };
+  searchParams: Promise<{ page: number }>;
 }
 
 const Page = async ({ params, searchParams }: PageProps) => {
