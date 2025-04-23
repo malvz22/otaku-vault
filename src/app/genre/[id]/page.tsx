@@ -9,7 +9,7 @@ import {
 } from "react-icons/md";
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams: {
     page: number;
   };
