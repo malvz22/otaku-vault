@@ -8,14 +8,22 @@ const Page = async () => {
     resource: "genres/anime",
   });
 
-  const groupedGenres = animeGenres.data.reduce((acc, genre) => {
+  const excludeGenresIds = [12, 49, 9];
+
+  const filteredGenres = animeGenres.data.filter(
+    (genre) => !excludeGenresIds.includes(Number(genre.mal_id))
+  );
+
+  console.log(filteredGenres);
+
+  const groupedGenres = filteredGenres.reduce((acc, genre) => {
     const firstLetter = genre.name[0].toUpperCase();
     if (!acc[firstLetter]) {
       acc[firstLetter] = [];
     }
     acc[firstLetter].push(genre);
     return acc;
-  }, {} as Record<string, typeof animeGenres.data>);
+  }, {} as Record<string, typeof filteredGenres>);
 
   const alphabet = Array.from({ length: 26 }, (_, i) =>
     String.fromCharCode(65 + i)

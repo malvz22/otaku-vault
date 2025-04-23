@@ -36,7 +36,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
   //   genreData.data.find((genre) => genre.mal_id === genreId)?.name || "Unknown";
 
   return (
-    <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
+    <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3 py-5">
       {/* <Header title={`${genreName}`} linkHref={""} linkTitle={""} /> */}
       <AnimeList api={animeData} />
       <div className="flex flex-row gap-2 justify-center items-center py-4 px-2 text-2xl">

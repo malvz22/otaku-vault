@@ -19,6 +19,32 @@ export default function Navbar() {
           <Link href={"/"}>
             <h1 className="text-white text-[24px] font-bold">OtakuVault</h1>
           </Link>
+          <div className="flex flex-row gap-3">
+            <Link
+              href={"/"}
+              className="text-white hover:text-[#000] transition-colors duration-700"
+            >
+              Anime
+            </Link>
+            <Link
+              href={"/current-season"}
+              className="text-white hover:text-[#000] transition-colors duration-700"
+            >
+              Seasonal
+            </Link>
+            <Link
+              href={"/genre"}
+              className="text-white hover:text-[#000] transition-colors duration-700"
+            >
+              Genre
+            </Link>
+            {/* <Link
+              href={"/manga"}
+              className="text-white hover:text-[#000] transition-colors duration-700"
+            >
+              Manga
+            </Link> */}
+          </div>
           <button
             onClick={handleSearchBar}
             className="transition-all duration-700 ease-in-out relative"
