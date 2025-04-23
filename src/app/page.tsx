@@ -27,7 +27,7 @@ const Home = async () => {
 
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
-    query: "limit=20",
+    query: "limit=10",
   });
 
   let recommendedAnime = await getNestedAnimeResponse({
