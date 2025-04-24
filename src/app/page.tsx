@@ -35,7 +35,7 @@ const Home = async () => {
     objectProperty: "entry",
   });
 
-  recommendedAnime = randomizer(recommendedAnime, 11);
+  recommendedAnime = randomizer(recommendedAnime, 10);
 
   return (
     <>

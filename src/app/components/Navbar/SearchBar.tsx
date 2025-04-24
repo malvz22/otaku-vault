@@ -149,10 +149,6 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
     return () => clearTimeout(delayDebounce);
   }, [keyword]);
 
-  useEffect(() => {
-    console.log(`searchResults`, searchResults);
-  }, [searchResults]);
-
   const fetchData = async () => {
     try {
       const response = await getAnimeResponse({

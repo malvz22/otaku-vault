@@ -14,8 +14,6 @@ const Page = async () => {
     (genre) => !excludeGenresIds.includes(Number(genre.mal_id))
   );
 
-  console.log(filteredGenres);
-
   const groupedGenres = filteredGenres.reduce((acc, genre) => {
     const firstLetter = genre.name[0].toUpperCase();
     if (!acc[firstLetter]) {
