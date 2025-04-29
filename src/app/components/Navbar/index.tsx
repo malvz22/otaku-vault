@@ -9,6 +9,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 export default function Navbar() {
   const [searchBar, setSearchBar] = useState(false);
   const [sideBar, setSidebar] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   const handleSideBar = () => {
     setSidebar(!sideBar);
     setSearchBar(false);
@@ -17,6 +18,10 @@ export default function Navbar() {
   const handleSearchBar = () => {
     setSearchBar(!searchBar);
     setSidebar(false);
+  };
+
+  const handleHoverMenu = () => {
+    setDropdown(!dropdown);
   };
 
   useEffect(() => {
@@ -34,29 +39,47 @@ export default function Navbar() {
 
   return (
     <div className="flex flex-col sticky top-0 left-0 z-50">
-      <nav className=" bg-[#1E90FF] text-black py-4  w-full max-w-full">
+      <nav className=" bg-[#1E90FF] text-black w-full max-w-full">
         <div className="flex flex-row justify-between items-center w-full max-w-[1024px] mx-auto px-4 gap-4">
           <Link href={"/"}>
-            <h1 className="text-white text-[24px] font-extrabold website-icon leading-tight">
+            <h1 className="text-white text-[24px] font-extrabold website-icon leading-none">
               OtakuVault
             </h1>
           </Link>
-          <div className="hidden md:flex flex-row gap-3 w-full max-w-full justify-start">
-            <Link
-              href={"/"}
-              className="text-white hover:text-[#000] transition-colors duration-700"
+          <div className="hidden md:flex flex-row w-full max-w-full justify-start">
+            <div
+              className="relative py-4 px-2 text-white transition-colors duration-700 hover:bg-white hover:text-[#000] "
+              onMouseEnter={handleHoverMenu}
+              onMouseLeave={handleHoverMenu}
             >
-              Anime
-            </Link>
+              <Link href={"/"} className="">
+                Anime
+              </Link>
+
+              {dropdown && (
+                <nav className="absolute flex top-full left-0 mt-0 flex-col">
+                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
+                    <Link href={"/popular"}>Most Popular</Link>
+                  </div>
+                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
+                    <Link href={"/current-season"}>Seasonal Anime</Link>
+                  </div>
+                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
+                    <Link href={"/genre"}>All Genre</Link>
+                  </div>
+                </nav>
+              )}
+            </div>
+
             <Link
               href={"/current-season"}
-              className="text-white hover:text-[#000] transition-colors duration-700"
+              className="text-white transition-colors duration-700 hover:bg-white hover:text-[#000] py-4 px-2"
             >
               Seasonal
             </Link>
             <Link
               href={"/genre"}
-              className="text-white hover:text-[#000] transition-colors duration-700"
+              className="text-white transition-colors duration-700 hover:bg-white hover:text-[#000] py-4 px-2"
             >
               Genre
             </Link>
