@@ -23,8 +23,24 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+button,
+div {
+  font-family: "Poppins", sans-serif;
+}
+
+.website-icon {
+  font-family: "Orbitron", sans-serif;
+}
+
+
 
 .spinner {
   width: 56px;

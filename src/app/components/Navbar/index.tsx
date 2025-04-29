@@ -37,7 +37,9 @@ export default function Navbar() {
       <nav className=" bg-[#1E90FF] text-black py-4  w-full max-w-full">
         <div className="flex flex-row justify-between items-center w-full max-w-[1024px] mx-auto px-4 gap-4">
           <Link href={"/"}>
-            <h1 className="text-white text-[24px] font-bold">OtakuVault</h1>
+            <h1 className="text-white text-[24px] font-extrabold website-icon leading-tight">
+              OtakuVault
+            </h1>
           </Link>
           <div className="hidden md:flex flex-row gap-3 w-full max-w-full justify-start">
             <Link
