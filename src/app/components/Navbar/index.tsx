@@ -9,7 +9,6 @@ import { RxHamburgerMenu } from "react-icons/rx";
 export default function Navbar() {
   const [searchBar, setSearchBar] = useState(false);
   const [sideBar, setSidebar] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
   const handleSideBar = () => {
     setSidebar(!sideBar);
     setSearchBar(false);
@@ -18,10 +17,6 @@ export default function Navbar() {
   const handleSearchBar = () => {
     setSearchBar(!searchBar);
     setSidebar(false);
-  };
-
-  const handleHoverMenu = () => {
-    setDropdown(!dropdown);
   };
 
   useEffect(() => {
@@ -47,42 +42,48 @@ export default function Navbar() {
             </h1>
           </Link>
           <div className="hidden md:flex flex-row w-full max-w-full justify-start">
-            <div
-              className="relative py-4 px-2 text-white transition-colors duration-700 hover:bg-white hover:text-[#000] "
-              onMouseEnter={handleHoverMenu}
-              onMouseLeave={handleHoverMenu}
-            >
-              <Link href={"/"} className="">
-                Anime
-              </Link>
+            <div className="relative group py-4 px-2 text-white hover:bg-[#2e2e30]">
+              <p>Anime</p>
 
-              {dropdown && (
-                <nav className="absolute flex top-full left-0 mt-0 flex-col">
-                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
-                    <Link href={"/popular"}>Most Popular</Link>
-                  </div>
-                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
-                    <Link href={"/current-season"}>Seasonal Anime</Link>
-                  </div>
-                  <div className="bg-white text-black w-40 py-2 hover:text-[#1e90ff] px-2">
-                    <Link href={"/genre"}>All Genre</Link>
-                  </div>
-                </nav>
-              )}
+              <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
+                <Link
+                  href={"/popular"}
+                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                >
+                  Most Popular
+                </Link>
+                <Link
+                  href={"/current-season"}
+                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                >
+                  Seasonal Anime
+                </Link>
+                <Link
+                  href={"/genre"}
+                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                >
+                  All Genres
+                </Link>
+              </nav>
             </div>
+            <div className="relative group py-4 px-2 text-white hover:bg-[#2e2e30]">
+              <p>Manga</p>
 
-            <Link
-              href={"/current-season"}
-              className="text-white transition-colors duration-700 hover:bg-white hover:text-[#000] py-4 px-2"
-            >
-              Manga
-            </Link>
-            <Link
-              href={"/genre"}
-              className="text-white transition-colors duration-700 hover:bg-white hover:text-[#000] py-4 px-2"
-            >
-              Genre
-            </Link>
+              <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
+                <Link
+                  href={"/popular"}
+                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                >
+                  Most Popular
+                </Link>
+                <Link
+                  href={"/genre"}
+                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                >
+                  All Genres
+                </Link>
+              </nav>
+            </div>
             {/* <Link
               href={"/manga"}
               className="text-white hover:text-[#000] transition-colors duration-700"
