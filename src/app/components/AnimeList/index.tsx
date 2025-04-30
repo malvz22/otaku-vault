@@ -17,7 +17,7 @@ interface Data {
 
 const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
       {api.data?.map((anime: Data) => {
         return (
           <Link

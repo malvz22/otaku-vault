@@ -39,7 +39,7 @@ export default function Navbar() {
 
   return (
     <div className="flex flex-col sticky top-0 left-0 z-50">
-      <nav className=" bg-[#1E90FF] text-black w-full max-w-full">
+      <nav className=" bg-[#1E90FF] text-black w-full max-w-full py-3 md:py-0">
         <div className="flex flex-row justify-between items-center w-full max-w-[1024px] mx-auto px-4 gap-4">
           <Link href={"/"}>
             <h1 className="text-white text-[24px] font-extrabold website-icon leading-none">
@@ -122,12 +122,12 @@ export default function Navbar() {
         </div>
       </nav>
       {searchBar && (
-        <div className="w-full fixed top-[68px] left-0 max-w-full h-screen bg-[#000000]/50 py-3 flex justify-center items-start z-50">
+        <div className="w-full fixed top-[48px] md:top-[56px] left-0 max-w-full h-screen bg-[#000000]/50 py-3 flex justify-center items-start z-50">
           <SearchBar setSearchBar={setSearchBar} />
         </div>
       )}
       {sideBar && (
-        <div className="w-full fixed top-[68px] left-0 max-w-full h-screen bg-[#191A1F] py-3 px-3 flex flex-col z-50">
+        <div className="w-full fixed top-[48px] md:top-[56px] left-0 max-w-full h-screen bg-[#191A1F] py-3 px-3 flex flex-col z-50">
           <Link
             href={"/"}
             className="text-white hover:text-[#1E90FF] transition-colors duration-700"

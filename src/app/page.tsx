@@ -27,7 +27,7 @@ const Home = async () => {
 
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
-    query: "limit=10",
+    query: "limit=8",
   });
 
   let recommendedAnime = await getNestedAnimeResponse({
@@ -35,7 +35,7 @@ const Home = async () => {
     objectProperty: "entry",
   });
 
-  recommendedAnime = randomizer(recommendedAnime, 10);
+  recommendedAnime = randomizer(recommendedAnime, 8);
 
   return (
     <>
