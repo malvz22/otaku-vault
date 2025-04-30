@@ -9,7 +9,6 @@ const Footer = () => {
         <div>© 2021 OtakuVault</div>
         <nav className="flex flex-row gap-4 mb-2">
           <Link href="/">Home</Link>
-          <Link href="/">Search Anime</Link>
           <Link href="/popular">Most Popular</Link>
           <Link href="/current-season">Seasonal</Link>
         </nav>

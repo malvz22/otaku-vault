@@ -75,7 +75,7 @@ export default function Navbar() {
               href={"/current-season"}
               className="text-white transition-colors duration-700 hover:bg-white hover:text-[#000] py-4 px-2"
             >
-              Seasonal
+              Manga
             </Link>
             <Link
               href={"/genre"}
