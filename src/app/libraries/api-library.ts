@@ -23,11 +23,11 @@ interface Pagination {
   };
 }
 
-interface ApiResponseObject {
+export interface ApiResponseObject {
   data: Data;
 }
 
-interface Data {
+export interface Data {
   push(index: Data[]): unknown;
   some(arg0: (entry: { mal_id: string; entry: Data[] }) => boolean): unknown;
   title: string;
@@ -111,6 +111,10 @@ interface Data {
   established: string;
   favorites: number;
   external: {
+    name: string;
+    url: string;
+  }[];
+  streaming: {
     name: string;
     url: string;
   }[];
