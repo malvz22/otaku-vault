@@ -89,23 +89,43 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
             <h3 className="text-xl font-semibold">Information</h3>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <div className="flex flex-col">
-              <p className="text-lg">
-                <span className="font-semibold">Type:</span>{" "}
-                {informationData.data.type}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Episodes:</span>{" "}
-                {informationData.data.episodes}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Status:</span>{" "}
-                {informationData.data.status}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Aired:</span>{" "}
-                {informationData.data.aired.string}
-              </p>
-              {informationData.data.broadcast.string && (
+              {informationData.data.type && (
+                <p className="text-lg">
+                  <span className="font-semibold">Type:</span>{" "}
+                  {informationData.data.type}
+                </p>
+              )}
+              {informationData.data.volumes && (
+                <p className="text-lg">
+                  <span className="font-semibold">Volumes:</span>{" "}
+                  {informationData.data.volumes}
+                </p>
+              )}
+              {informationData.data.chapters && (
+                <p className="text-lg">
+                  <span className="font-semibold">Chapters:</span>{" "}
+                  {informationData.data.chapters}
+                </p>
+              )}
+              {informationData.data.episodes && (
+                <p className="text-lg">
+                  <span className="font-semibold">Episodes:</span>{" "}
+                  {informationData.data.episodes}
+                </p>
+              )}
+              {informationData.data.status && (
+                <p className="text-lg">
+                  <span className="font-semibold">Status:</span>{" "}
+                  {informationData.data.status}
+                </p>
+              )}
+              {informationData.data.aired?.string && (
+                <p className="text-lg">
+                  <span className="font-semibold">Aired:</span>{" "}
+                  {informationData.data.aired.string}
+                </p>
+              )}
+              {informationData.data.broadcast?.string && (
                 <p className="text-lg">
                   <span className="font-semibold">Broadcast:</span>{" "}
                   {informationData.data.broadcast.string}
@@ -160,11 +180,12 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                     ))}
                   </div>
                 )}
-
-              <p className="text-lg">
-                <span className="font-semibold">Source:</span>{" "}
-                {informationData.data.source}
-              </p>
+              {informationData.data.source && (
+                <p className="text-lg">
+                  <span className="font-semibold">Source:</span>{" "}
+                  {informationData.data.source}
+                </p>
+              )}
 
               {informationData.data.genres &&
                 informationData.data.genres.length > 0 && (
@@ -217,15 +238,18 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                     ))}
                   </div>
                 )}
-
-              <p className="text-lg">
-                <span className="font-semibold">Duration:</span>{" "}
-                {informationData.data.duration}
-              </p>
-              <p className="text-lg">
-                <span className="font-semibold">Rating:</span>{" "}
-                {informationData.data.rating}
-              </p>
+              {informationData.data.duration && (
+                <p className="text-lg">
+                  <span className="font-semibold">Duration:</span>{" "}
+                  {informationData.data.duration}
+                </p>
+              )}
+              {informationData.data.rating && (
+                <p className="text-lg">
+                  <span className="font-semibold">Rating:</span>{" "}
+                  {informationData.data.rating}
+                </p>
+              )}
             </div>
           </div>
 
@@ -270,28 +294,33 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
               })}
             </div>
           </div>
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">Streaming Platform</h3>
-            <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
+          {informationData.data.streaming && (
             <div className="flex flex-col">
-              {informationData.data.streaming.map((streaming, index) => {
-                const Icon =
-                  iconMap[streaming.name as keyof typeof iconMap] || FaGlobe;
-                return (
-                  <div className="flex flex-row gap-1 items-center" key={index}>
-                    <Icon />
-                    <Link
-                      href={streaming.url}
-                      className="text-blue-400 hover:underline text-lg"
-                      target="_blank"
+              <h3 className="text-xl font-semibold">Streaming Platform</h3>
+              <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
+              <div className="flex flex-col">
+                {informationData.data.streaming.map((streaming, index) => {
+                  const Icon =
+                    iconMap[streaming.name as keyof typeof iconMap] || FaGlobe;
+                  return (
+                    <div
+                      className="flex flex-row gap-1 items-center"
+                      key={index}
                     >
-                      {streaming.name}
-                    </Link>
-                  </div>
-                );
-              })}
+                      <Icon />
+                      <Link
+                        href={streaming.url}
+                        className="text-blue-400 hover:underline text-lg"
+                        target="_blank"
+                      >
+                        {streaming.name}
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </aside>
 
         <div className="flex flex-col w-full">
@@ -313,9 +342,12 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
               <p>{informationData.data.episodes}</p>
             </div>
           </div>
-          <VideoPlayerPage
-            youtubeId={informationData.data.trailer.youtube_id}
-          />
+          {informationData.data.trailer && (
+            <VideoPlayerPage
+              youtubeId={informationData.data.trailer.youtube_id}
+            />
+          )}
+
           <div className="mb-3">
             <p className="font-semibold text-2xl mb-1">Synopsis</p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
@@ -345,19 +377,26 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                   <span className="font-semibold">Type:</span>{" "}
                   {informationData.data.type}
                 </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Episodes:</span>{" "}
-                  {informationData.data.episodes}
-                </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Status:</span>{" "}
-                  {informationData.data.status}
-                </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Aired:</span>{" "}
-                  {informationData.data.aired.string}
-                </p>
-                {informationData.data.broadcast.string && (
+                {informationData.data.episodes && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Episodes:</span>{" "}
+                    {informationData.data.episodes}
+                  </p>
+                )}
+                {informationData.data.status && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Status:</span>{" "}
+                    {informationData.data.status}
+                  </p>
+                )}
+                {informationData.data.aired?.string && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Aired:</span>{" "}
+                    {informationData.data.aired.string}
+                  </p>
+                )}
+
+                {informationData.data.broadcast?.string && (
                   <p className="text-lg">
                     <span className="font-semibold">Broadcast:</span>{" "}
                     {informationData.data.broadcast.string}
@@ -412,11 +451,12 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                       ))}
                     </div>
                   )}
-
-                <p className="text-lg">
-                  <span className="font-semibold">Source:</span>{" "}
-                  {informationData.data.source}
-                </p>
+                {informationData.data.source && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Source:</span>{" "}
+                    {informationData.data.source}
+                  </p>
+                )}
 
                 {informationData.data.genres &&
                   informationData.data.genres.length > 0 && (
@@ -468,15 +508,18 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                       ))}
                     </div>
                   )}
-
-                <p className="text-lg">
-                  <span className="font-semibold">Duration:</span>{" "}
-                  {informationData.data.duration}
-                </p>
-                <p className="text-lg">
-                  <span className="font-semibold">Rating:</span>{" "}
-                  {informationData.data.rating}
-                </p>
+                {informationData.data.duration && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Duration:</span>{" "}
+                    {informationData.data.duration}
+                  </p>
+                )}
+                {informationData.data.rating && (
+                  <p className="text-lg">
+                    <span className="font-semibold">Rating:</span>{" "}
+                    {informationData.data.rating}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -525,12 +568,14 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
           </div>
           <div className="mb-2">
             <p className="font-semibold text-2xl mb-1">
-              Character & Voice Actors
+              {informationData.data.type === "Manga"
+                ? "Characters"
+                : "Character & Voice Actors"}
             </p>
             <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full max-w-full">
               {limitedCharacterData.map((character) => {
-                const japaneseVA = character.voice_actors.find(
+                const japaneseVA = character.voice_actors?.find(
                   (va) => va.language === "Japanese"
                 );
                 return (

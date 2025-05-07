@@ -144,6 +144,7 @@ export interface Data {
   };
   role: string;
   name: string;
+  chapters: string;
 }
 
 interface Entry {
