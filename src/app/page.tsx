@@ -51,7 +51,11 @@ const Home = async () => {
       </section> */}
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
-        <Header title="Most Popular" linkHref="/popular" linkTitle="View More">
+        <Header
+          title="Most Popular Anime"
+          linkHref="/popular"
+          linkTitle="View More"
+        >
           <IoStarSharp />
         </Header>
         <AnimeList api={topAnime} />
@@ -59,7 +63,7 @@ const Home = async () => {
 
       {/* Recommended Anime*/}
       <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
-        <Header title="Recommended" linkHref="" linkTitle="">
+        <Header title="Recommended Anime" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
         <AnimeList api={recommendedAnime} />
