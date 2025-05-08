@@ -2,12 +2,8 @@ export const revalidate = 3600;
 
 import AnimeList from "./components/AnimeList/index";
 import Header from "./components/AnimeList/Header";
-import {
-  getAnimeResponse,
-  getNestedAnimeResponse,
-  randomizer,
-} from "./libraries/api-library";
-import { IoStarSharp, IoThumbsUpSharp } from "react-icons/io5";
+import { getAnimeResponse } from "./libraries/api-library";
+import { IoStarSharp } from "react-icons/io5";
 import { getCurrentSeasonName } from "./libraries/function";
 
 interface Data {
@@ -36,12 +32,12 @@ const Home = async () => {
     query: "limit=8",
   });
 
-  let recommendedAnime = await getNestedAnimeResponse({
-    resource: "recommendations/anime",
-    objectProperty: "entry",
-  });
+  // let recommendedAnime = await getNestedAnimeResponse({
+  //   resource: "recommendations/anime",
+  //   objectProperty: "entry",
+  // });
 
-  recommendedAnime = randomizer(recommendedAnime, 8);
+  // recommendedAnime = randomizer(recommendedAnime, 8);
 
   const seasonName = getCurrentSeasonName();
 
@@ -70,12 +66,12 @@ const Home = async () => {
         <AnimeList api={topAnime} />
       </section>
       {/* Recommended Anime*/}
-      <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
+      {/* <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Recommended Anime" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
         <AnimeList api={recommendedAnime} />
-      </section>
+      </section> */}
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Most Popular Manga" linkHref="" linkTitle="View More">

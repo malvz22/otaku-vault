@@ -153,20 +153,6 @@ interface Entry {
   type: string;
 }
 
-// interface RandomizedData extends Data {
-//   title: string;
-//   images: {
-//     webp: {
-//       image_url: string;
-//     };
-//   };
-//   mal_id: string;
-// }
-
-// interface RandomizedDataContainer {
-//   data: RandomizedData[];
-// }
-
 export const getAnimeResponse = async ({
   resource,
   query = "",
