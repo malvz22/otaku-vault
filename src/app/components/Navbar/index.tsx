@@ -47,7 +47,7 @@ export default function Navbar() {
 
               <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
                 <Link
-                  href={"/popular"}
+                  href={"/anime/popular"}
                   className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
                 >
                   Most Popular
@@ -59,7 +59,7 @@ export default function Navbar() {
                   Seasonal Anime
                 </Link>
                 <Link
-                  href={"/genre"}
+                  href={"/anime/genre"}
                   className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
                 >
                   All Genres
@@ -71,7 +71,7 @@ export default function Navbar() {
 
               <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
                 <Link
-                  href={"/popular"}
+                  href={"/manga/popular"}
                   className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
                 >
                   Most Popular

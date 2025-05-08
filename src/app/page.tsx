@@ -58,7 +58,7 @@ const Home = async () => {
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header
           title="Most Popular Anime"
-          linkHref="/popular"
+          linkHref="/anime/popular"
           linkTitle="View More"
         >
           <IoStarSharp />
@@ -74,7 +74,11 @@ const Home = async () => {
       </section> */}
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
-        <Header title="Most Popular Manga" linkHref="" linkTitle="View More">
+        <Header
+          title="Most Popular Manga"
+          linkHref="/manga/popular"
+          linkTitle="View More"
+        >
           <IoStarSharp />
         </Header>
         <AnimeList api={topManga} />

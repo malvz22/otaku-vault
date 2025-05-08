@@ -2,11 +2,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import HeaderMenu from "../components/Utilities/HeaderMenu";
-import Pagination from "../components/Utilities/Pagination";
+import HeaderMenu from "../../components/Utilities/HeaderMenu";
+import Pagination from "../../components/Utilities/Pagination";
 import Link from "next/link";
 import Image from "next/image";
-import { getAnimeResponse } from "../libraries/api-library";
+import { getAnimeResponse } from "../../libraries/api-library";
 
 interface Data {
   title: string;
@@ -26,16 +26,16 @@ interface Pagination {
 const Page = () => {
   const [page, setPage] = useState(1);
   const [paginationData, setPaginationData] = useState<Pagination | null>(null);
-  const [topAnime, setTopAnime] = useState<Data[]>([]);
+  const [topManga, setTopManga] = useState<Data[]>([]);
 
   const fetchData = async () => {
     try {
       const response = await getAnimeResponse({
-        resource: `top/anime`,
+        resource: `top/manga`,
         query: `page=${page}`,
       });
       const { data, pagination } = response;
-      setTopAnime(data);
+      setTopManga(data);
       setPaginationData(pagination || null);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -48,21 +48,21 @@ const Page = () => {
 
   return (
     <div className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3 justify-center items-center">
-      <HeaderMenu title={`Most Popular Anime Page #${page}`} />
+      <HeaderMenu title={`Most Popular Manga Page #${page}`} />
       {/* <AnimeList api={topAnime} /> */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-        {topAnime.map((anime: Data) => {
+        {topManga.map((manga: Data) => {
           return (
             <Link
-              key={anime.mal_id}
-              href={`/anime/${anime.mal_id}`}
+              key={manga.mal_id}
+              href={`/manga/${manga.mal_id}`}
               className="cursor-pointer"
-              id={anime.mal_id}
+              id={manga.mal_id}
             >
               <div className="w-full max-w-full flex flex-col gap-[5px] hover:text-[#1E90FF] transition-all duration-700">
                 <div className="w-full max-w-full aspect-[16/22] relative rounded-md overflow-hidden">
                   <Image
-                    src={anime.images.webp.image_url}
+                    src={manga.images.webp.image_url}
                     alt="..."
                     fill
                     style={{ objectFit: "cover" }}
@@ -70,7 +70,7 @@ const Page = () => {
                   />
                 </div>
 
-                <p className="text-md md:text-xl font-bold">{anime.title}</p>
+                <p className="text-md md:text-xl font-bold">{manga.title}</p>
               </div>
             </Link>
           );

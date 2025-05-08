@@ -117,13 +117,13 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                   {informationData.data.status}
                 </p>
               )}
-              {informationData.data.aired.string && (
+              {informationData.data.aired?.string && (
                 <p className="text-lg">
                   <span className="font-semibold">Aired:</span>{" "}
                   {informationData.data.aired.string}
                 </p>
               )}
-              {informationData.data.broadcast.string && (
+              {informationData.data.broadcast?.string && (
                 <p className="text-lg">
                   <span className="font-semibold">Broadcast:</span>{" "}
                   {informationData.data.broadcast.string}
@@ -387,14 +387,14 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                     {informationData.data.status}
                   </p>
                 )}
-                {informationData.data.aired.string && (
+                {informationData.data.aired?.string && (
                   <p className="text-lg">
                     <span className="font-semibold">Aired:</span>{" "}
                     {informationData.data.aired.string}
                   </p>
                 )}
 
-                {informationData.data.broadcast.string && (
+                {informationData.data.broadcast?.string && (
                   <p className="text-lg">
                     <span className="font-semibold">Broadcast:</span>{" "}
                     {informationData.data.broadcast.string}
