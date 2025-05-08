@@ -45,8 +45,6 @@ const Home = async () => {
 
   const seasonName = getCurrentSeasonName();
 
-  console.log(topManga);
-
   return (
     <>
       {/* seasonal anime */}
