@@ -8,6 +8,7 @@ import {
   randomizer,
 } from "./libraries/api-library";
 import { IoStarSharp, IoThumbsUpSharp } from "react-icons/io5";
+import { getCurrentSeasonName } from "./libraries/function";
 
 interface Data {
   title: string;
@@ -20,13 +21,18 @@ interface Data {
 }
 
 const Home = async () => {
-  // const seasonsNow = await getAnimeResponse({
-  //   resource: "seasons/now",
-  //   query: "limit=8",
-  // });
+  const currentSeason = await getAnimeResponse({
+    resource: "seasons/now",
+    query: "limit=8",
+  });
 
   const topAnime: { data: Data[] } = await getAnimeResponse({
     resource: "top/anime",
+    query: "limit=8",
+  });
+
+  const topManga = await getAnimeResponse({
+    resource: "top/manga",
     query: "limit=8",
   });
 
@@ -37,18 +43,23 @@ const Home = async () => {
 
   recommendedAnime = randomizer(recommendedAnime, 8);
 
+  const seasonName = getCurrentSeasonName();
+
+  console.log(topManga);
+
   return (
     <>
-      {/* <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
+      {/* seasonal anime */}
+      <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header
-          title="Current Season"
+          title={`${seasonName} Anime`}
           linkHref="/current-season"
           linkTitle="View More"
         >
           <IoStarSharp />
         </Header>
-        <AnimeList api={seasonsNow} />
-      </section> */}
+        <AnimeList api={currentSeason} />
+      </section>
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header
@@ -60,13 +71,19 @@ const Home = async () => {
         </Header>
         <AnimeList api={topAnime} />
       </section>
-
       {/* Recommended Anime*/}
       <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
         <Header title="Recommended Anime" linkHref="" linkTitle="">
           <IoThumbsUpSharp />
         </Header>
         <AnimeList api={recommendedAnime} />
+      </section>
+      {/* most popular anime */}
+      <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
+        <Header title="Most Popular Manga" linkHref="" linkTitle="View More">
+          <IoStarSharp />
+        </Header>
+        <AnimeList api={topManga} />
       </section>
     </>
   );

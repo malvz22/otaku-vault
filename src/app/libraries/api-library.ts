@@ -252,7 +252,7 @@ export const getAnimeResponseObject = async ({
     query ? `${query}` : ""
   }`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
@@ -276,7 +276,7 @@ export const getNestedAnimeResponse = async ({
 }) => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
