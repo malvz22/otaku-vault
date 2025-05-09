@@ -43,8 +43,6 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
 
   const limitedCharacterData = characterData.data.slice(0, 10);
 
-  console.log(informationData.data);
-
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
       <div className="pt-4 px-4 flex flex-row gap-2">
