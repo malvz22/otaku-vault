@@ -20,7 +20,7 @@ const Page = async () => {
   return (
     <main className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto">
       <HeaderMenu title={`${seasonName} Animes`} />
-      <AnimeList api={seasonsNow} />
+      <AnimeList type="anime" api={seasonsNow} />
     </main>
   );
 };

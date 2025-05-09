@@ -2,7 +2,6 @@ export const revalidate = 3600;
 
 import VideoPlayerPage from "@/app/components/Utilities/VideoPlayerPage";
 import { Data } from "@/app/libraries/api-library";
-import { safeString } from "@/app/libraries/function";
 import Image from "next/image";
 import Link from "next/link";
 import { IconType } from "react-icons";
@@ -21,7 +20,7 @@ interface DisplayInformationProps {
   characterData: { data: Data[] };
 }
 
-const DisplayInformation: React.FC<DisplayInformationProps> = async ({
+const DisplayMangaInformation: React.FC<DisplayInformationProps> = async ({
   informationData,
   characterData,
 }) => {
@@ -42,8 +41,6 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
   };
 
   const limitedCharacterData = characterData.data.slice(0, 10);
-
-  console.log(informationData.data);
 
   return (
     <main className="flex flex-col w-full max-w-[1024px] mx-auto">
@@ -123,13 +120,13 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
               {informationData.data.aired?.string && (
                 <p className="text-lg">
                   <span className="font-semibold">Aired:</span>{" "}
-                  {safeString(informationData.data.aired?.string)}
+                  {informationData.data.aired.string}
                 </p>
               )}
               {informationData.data.broadcast?.string && (
                 <p className="text-lg">
                   <span className="font-semibold">Broadcast:</span>{" "}
-                  {safeString(informationData.data.broadcast?.string)}
+                  {informationData.data.broadcast.string}
                 </p>
               )}
               {informationData.data.producers &&
@@ -272,34 +269,29 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
               </p>
             </div>
           </div>
-          {informationData.data.external && (
-            <div className="flex flex-col">
-              <h3 className="text-xl font-semibold">Available At</h3>
-              <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
-              <div className="flex flex-col">
-                {informationData.data.external.map((external, index) => {
-                  const Icon =
-                    iconMap[external.name as keyof typeof iconMap] || FaGlobe;
-                  return (
-                    <div
-                      className="flex flex-row gap-1 items-center"
-                      key={index}
-                    >
-                      <Icon />
-                      <Link
-                        href={external.url}
-                        className="text-blue-400 hover:underline text-lg"
-                        target="_blank"
-                      >
-                        {external.name}
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
 
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">Available At</h3>
+            <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-2" />
+            <div className="flex flex-col">
+              {informationData.data.external.map((external, index) => {
+                const Icon =
+                  iconMap[external.name as keyof typeof iconMap] || FaGlobe;
+                return (
+                  <div className="flex flex-row gap-1 items-center" key={index}>
+                    <Icon />
+                    <Link
+                      href={external.url}
+                      className="text-blue-400 hover:underline text-lg"
+                      target="_blank"
+                    >
+                      {external.name}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           {informationData.data.streaming && (
             <div className="flex flex-col">
               <h3 className="text-xl font-semibold">Streaming Platform</h3>
@@ -398,14 +390,14 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
                 {informationData.data.aired?.string && (
                   <p className="text-lg">
                     <span className="font-semibold">Aired:</span>{" "}
-                    {safeString(informationData.data.aired.string)}
+                    {informationData.data.aired.string}
                   </p>
                 )}
 
                 {informationData.data.broadcast?.string && (
                   <p className="text-lg">
                     <span className="font-semibold">Broadcast:</span>{" "}
-                    {safeString(informationData.data.broadcast.string)}
+                    {informationData.data.broadcast.string}
                   </p>
                 )}
                 {informationData.data.producers &&
@@ -629,4 +621,4 @@ const DisplayInformation: React.FC<DisplayInformationProps> = async ({
   );
 };
 
-export default DisplayInformation;
+export default DisplayMangaInformation;

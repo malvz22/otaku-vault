@@ -52,7 +52,7 @@ const Home = async () => {
         >
           <IoStarSharp />
         </Header>
-        <AnimeList api={currentSeason} />
+        <AnimeList api={currentSeason} type="anime" />
       </section>
       {/* most popular anime */}
       <section className="flex flex-col justify-center items-center px-3 w-full max-w-[1024px] mx-auto pb-3">
@@ -63,7 +63,7 @@ const Home = async () => {
         >
           <IoStarSharp />
         </Header>
-        <AnimeList api={topAnime} />
+        <AnimeList api={topAnime} type="anime" />
       </section>
       {/* Recommended Anime*/}
       {/* <section className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3">
@@ -81,7 +81,7 @@ const Home = async () => {
         >
           <IoStarSharp />
         </Header>
-        <AnimeList api={topManga} />
+        <AnimeList api={topManga} type="manga" />
       </section>
     </>
   );

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 interface AnimeListProps {
   api: { data: Data[] };
+  type: string;
 }
 
 interface Data {
@@ -15,14 +16,14 @@ interface Data {
   mal_id: string;
 }
 
-const AnimeList: React.FC<AnimeListProps> = ({ api }) => {
+const AnimeList: React.FC<AnimeListProps> = ({ api, type }) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
       {api.data?.map((anime: Data) => {
         return (
           <Link
             key={anime.mal_id}
-            href={`/anime/${anime.mal_id}`}
+            href={`/${type}/${anime.mal_id}`}
             className="cursor-pointer"
             id={anime.mal_id}
           >

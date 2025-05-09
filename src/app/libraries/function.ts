@@ -17,3 +17,10 @@ export function getCurrentSeasonName(): string {
 
   return `${season} ${year}`;
 }
+
+export function safeString(
+  value: string | null | undefined,
+  fallback = "-"
+): string {
+  return typeof value === "string" && value.trim() !== "" ? value : fallback;
+}

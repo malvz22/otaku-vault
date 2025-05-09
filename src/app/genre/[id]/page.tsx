@@ -36,7 +36,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
   return (
     <main className="flex flex-col px-3 w-full max-w-[1024px] mx-auto pb-3 py-5">
       {/* <Header title={`${genreName}`} linkHref={""} linkTitle={""} /> */}
-      <AnimeList api={animeData} />
+      <AnimeList type="anime" api={animeData} />
       <div className="flex flex-row gap-2 justify-center items-center py-4 px-2 text-2xl">
         <Link
           href={`/genre/${id}?page=1`}
