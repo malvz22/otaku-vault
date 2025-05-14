@@ -49,21 +49,21 @@ export default function Navbar() {
               <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
                 <Link
                   href={"/anime/popular"}
-                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                  className="bg-[#2e2e30] text-white w-48 py-2 hover:bg-white hover:text-black px-2"
                 >
-                  Most Popular
+                  Most Popular Anime
                 </Link>
                 <Link
                   href={"/current-season"}
-                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                  className="bg-[#2e2e30] text-white w-48 py-2 hover:bg-white hover:text-black px-2"
                 >
                   Seasonal Anime
                 </Link>
                 <Link
                   href={"/anime/genre"}
-                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                  className="bg-[#2e2e30] text-white w-48 py-2 hover:bg-white hover:text-black px-2"
                 >
-                  All Genres
+                  All Anime Genres
                 </Link>
               </nav>
             </div>
@@ -73,15 +73,15 @@ export default function Navbar() {
               <nav className="absolute top-full left-0 mt-0 flex-col hidden group-hover:flex">
                 <Link
                   href={"/manga/popular"}
-                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                  className="bg-[#2e2e30] text-white w-48 py-2 hover:bg-white hover:text-black px-2"
                 >
-                  Most Popular
+                  Most Popular Manga
                 </Link>
                 <Link
-                  href={"/genre"}
-                  className="bg-[#2e2e30] text-white w-40 py-2 hover:bg-white hover:text-black px-2"
+                  href={"/manga/genre"}
+                  className="bg-[#2e2e30] text-white w-48 py-2 hover:bg-white hover:text-black px-2"
                 >
-                  All Genres
+                  All Manga Genres
                 </Link>
               </nav>
             </div>
@@ -161,7 +161,7 @@ export default function Navbar() {
                 className="text-white hover:text-[#1E90FF] transition-colors duration-700"
                 onClick={() => setSidebar(false)}
               >
-                All Genre
+                All Anime Genres
               </Link>
             </div>
           </details>
@@ -183,13 +183,13 @@ export default function Navbar() {
               >
                 Most Popular Manga
               </Link>
-              {/* <Link
+              <Link
                 href={"/manga/genre"}
                 className="text-white hover:text-[#1E90FF] transition-colors duration-700"
                 onClick={() => setSidebar(false)}
               >
-                All Manga Genre
-              </Link> */}
+                All Manga Genres
+              </Link>
             </div>
           </details>
         </div>
