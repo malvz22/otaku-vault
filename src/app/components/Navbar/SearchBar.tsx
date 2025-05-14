@@ -135,6 +135,8 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
   const [keyword, setKeyword] = useState("");
 
   const [searchResults, setSearchResults] = useState<Data[]>([]);
+  const [searchFilter, setSearchFilter] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>("anime");
   const router = useRouter();
 
   useEffect(() => {
@@ -152,7 +154,7 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
   const fetchData = async () => {
     try {
       const response = await getAnimeResponse({
-        resource: "anime",
+        resource: `${selectedFilter}`,
         query: `q=${keyword}&limit=6`,
       });
       setSearchResults(response.data);
@@ -181,19 +183,55 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
       router.push(`/search/${keyword}`);
     }
   };
+
   return (
     <div className="relative w-full max-w-[1024px] px-3">
-      <div className="w-full max-w-full mb-3">
+      <div className="w-full max-w-full mb-3 flex flex-row gap-3 relative items-center">
+        <div className="relative flex flex-col items-center">
+          <button
+            className="flex flex-row gap-2 text-lg"
+            onClick={() => setSearchFilter(!searchFilter)}
+          >
+            <p>
+              {selectedFilter.charAt(0).toLocaleUpperCase() +
+                selectedFilter.slice(1)}
+            </p>
+            <p>▼</p>
+          </button>
+          {searchFilter && (
+            <div className="absolute top-10 end-0 bg-[#191A1F] rounded-md px-3 py-2">
+              <button
+                className="py-1"
+                onClick={() => {
+                  setSelectedFilter("anime");
+                  setSearchFilter(false);
+                }}
+              >
+                Anime
+              </button>
+              <button
+                className="py-1"
+                onClick={() => {
+                  setSelectedFilter("manga");
+                  setSearchFilter(false);
+                }}
+              >
+                Manga
+              </button>
+            </div>
+          )}
+        </div>
+
         <input
           className="w-full p-3 rounded-md border-solid border-[1px] border-black text-black"
-          placeholder="search anime..."
+          placeholder="Search"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           ref={searchRef}
           onKeyDown={handleSearchInput}
         />
         <button
-          className="absolute top-3 end-6 text-black"
+          className="absolute top-3 end-4 text-black"
           onClick={handleSearchInput}
         >
           <HiOutlineMagnifyingGlass size={24} />
@@ -204,7 +242,7 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
         {searchResults.map((result) => {
           return (
             <Link
-              href={`/anime/${result.mal_id}`}
+              href={`/${selectedFilter}/${result.mal_id}`}
               key={result.mal_id}
               className="w-full max-w-full flex flex-row gap-3 items-center hover:items-start bg-[#191A1F] rounded-md p-3 hover:text-[#1E90FF] transition-all duration-700 group"
               onClick={() => setSearchBar(false)}
@@ -229,7 +267,11 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
                 </div>
 
                 <div className="text-sm text-white hidden group-hover:flex flex-col">
-                  <p className="">Aired: {result.aired.string}</p>
+                  {selectedFilter === "anime" ? (
+                    <p className="">Aired: {result.aired?.string}</p>
+                  ) : (
+                    <p className="">Published: {result.published?.string}</p>
+                  )}
                   <p className="">Score:{result.score}</p>
                   <p className="">Status: {result.status}</p>
                 </div>
