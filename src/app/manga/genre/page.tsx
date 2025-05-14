@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getDataResponse } from "../../libraries/api-library";
+import { getUniqueDataResponse } from "../../libraries/api-library";
 import HeaderMenu from "../../components/Utilities/HeaderMenu";
 import BackToTopButton from "../../components/Utilities/BackToTopButton";
 
 const Page = async () => {
-  const animeGenres = await getDataResponse({
-    resource: "genres/anime",
+  const animeGenres = await getUniqueDataResponse({
+    resource: "genres/manga",
   });
 
   const excludeGenresIds = [12, 49, 9];
@@ -55,7 +55,7 @@ const Page = async () => {
               <div className="flex flex-col gap-3">
                 {genres.map((genre) => (
                   <Link
-                    href={`/anime/genre/${genre.mal_id}?page=1`}
+                    href={`/manga/genre/${genre.mal_id}?page=1`}
                     key={genre.mal_id}
                     className="text-lg text-white hover:text-[#1E90FF] transition-all duration-700 ease-in-out"
                   >

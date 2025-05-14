@@ -226,6 +226,33 @@ export const getDataResponse = async ({
   return data;
 };
 
+export const getUniqueDataResponse = async ({
+  resource,
+  query = "",
+}: ApiProps): Promise<ApiResponse> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${resource}?${
+      query ? `${query}` : ""
+    }`,
+    { cache: "no-store" }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+
+  const uniqueData = data.data.reduce((acc: Data[], data: Data) => {
+    if (!acc.some((entry) => entry.mal_id === data.mal_id)) {
+      acc.push(data);
+    }
+    return acc;
+  }, []);
+
+  return { ...data, data: uniqueData };
+};
+
 export const getAnimeResponseObject = async ({
   resource,
   query = "",
