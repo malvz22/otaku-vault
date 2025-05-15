@@ -176,10 +176,12 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
       const keyboardEvent = event as React.KeyboardEvent<HTMLInputElement>;
       if (keyboardEvent.key === `Enter`) {
         event.preventDefault();
+        setSearchBar(false);
         router.push(`/search/${keyword}`);
       }
     } else if (event.type === `click`) {
       event.preventDefault();
+      setSearchBar(false);
       router.push(`/search/${keyword}`);
     }
   };
@@ -187,7 +189,7 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
   return (
     <div className="relative w-full max-w-[1024px] px-3">
       <div className="w-full max-w-full mb-3 flex flex-row gap-3 relative items-center">
-        <div className="relative flex flex-col items-center">
+        <div className="relative z-[1000] flex flex-col items-center">
           <button
             className="flex flex-row gap-2 text-lg"
             onClick={() => setSearchFilter(!searchFilter)}
@@ -199,7 +201,7 @@ const SearchBar: React.FC<Props> = ({ setSearchBar }) => {
             <p>▼</p>
           </button>
           {searchFilter && (
-            <div className="absolute top-10 end-0 bg-[#191A1F] rounded-md px-3 py-2">
+            <div className="absolute top-7 bg-[#191A1F] rounded-md px-3 py-2">
               <button
                 className="py-1"
                 onClick={() => {
