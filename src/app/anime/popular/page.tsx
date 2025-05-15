@@ -70,7 +70,9 @@ const Page = () => {
                   />
                 </div>
 
-                <p className="text-md md:text-xl font-bold">{anime.title}</p>
+                <p className="text-md md:text-xl font-bold truncate">
+                  {anime.title}
+                </p>
               </div>
             </Link>
           );

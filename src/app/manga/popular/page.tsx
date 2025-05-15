@@ -70,7 +70,9 @@ const Page = () => {
                   />
                 </div>
 
-                <p className="text-md md:text-xl font-bold">{manga.title}</p>
+                <p className="text-md md:text-xl font-bold truncate">
+                  {manga.title}
+                </p>
               </div>
             </Link>
           );
