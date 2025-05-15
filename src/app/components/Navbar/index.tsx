@@ -134,7 +134,7 @@ export default function Navbar() {
           <details className="group">
             <summary className="flex flex-col">
               <div className="flex flex-row justify-between items-center text-lg font-semibold text-white">
-                <p>Anime</p>
+                <p className="cursor-default select-none">Anime</p>
                 <IoIosArrowForward className="group-open:rotate-90 transform transition-transform duration-300" />
               </div>
               <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-1 my-1" />
@@ -169,7 +169,7 @@ export default function Navbar() {
           <details className="group">
             <summary className="flex flex-col">
               <div className="flex flex-row justify-between items-center text-lg font-semibold text-white">
-                <p>Manga</p>
+                <p className="cursor-default select-none">Manga</p>
                 <IoIosArrowForward className="group-open:rotate-90 transform transition-transform duration-300" />
               </div>
               <hr className="w-full border-white/40 border-solid border-[1px] rounded mb-1 my-1" />
