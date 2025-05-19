@@ -55,6 +55,14 @@ This app is deployed on Vercel.
 
 ![Anime Detail Page](public/screenshots/anime-info.png)
 
+### 🔹 Genre List Page
+
+![Search Page](public/screenshots/search-results.png)
+
+### 🔹 Search Bar
+
+![Search Bar](public/screenshots/search-bar.png)
+
 ### 🔹 Search Results
 
 ![Search Page](public/screenshots/search-results.png)
