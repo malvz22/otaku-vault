@@ -57,7 +57,7 @@ This app is deployed on Vercel.
 
 ### 🔹 Genre List Page
 
-![Search Page](public/screenshots/search-results.png)
+![Genre List Page](public/screenshots/genre-list.png)
 
 ### 🔹 Search Bar
 
